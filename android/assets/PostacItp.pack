@@ -1,0 +1,12 @@
+
+PostacItp.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Player
+  rotate: false
+  xy: 1, 1
+  size: 15, 23
+  orig: 15, 23
+  offset: 0, 0
+  index: -1
