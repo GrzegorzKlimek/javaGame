@@ -25,7 +25,7 @@
   <object id="46" x="3.5" y="176.5" width="335.5" height="48"/>
   <object id="47" x="388" y="177" width="959.5" height="48"/>
  </objectgroup>
- <objectgroup name="platform" visible="0">
+ <objectgroup name="platform">
   <object id="28" x="2287" y="142">
    <polyline points="0,0 1,35 66,36 65,-33 1,1"/>
   </object>
@@ -49,13 +49,13 @@
   <object id="62" x="944.5" y="143" width="63" height="17.5"/>
   <object id="63" x="976" y="161.5" width="63.5" height="13.5"/>
  </objectgroup>
- <objectgroup name="character" visible="0">
+ <objectgroup name="character">
   <object id="1" x="6" y="145" width="20" height="30"/>
  </objectgroup>
- <objectgroup name="ladder" visible="0">
+ <objectgroup name="ladder">
   <object id="13" x="633" y="80" width="19" height="97"/>
  </objectgroup>
- <objectgroup name="spikes" visible="0">
+ <objectgroup name="spikes">
   <object id="33" x="419" y="114" width="13" height="63"/>
   <object id="34" x="1455" y="144" width="16" height="31"/>
   <object id="35" x="1856" y="130" width="32" height="12"/>
@@ -64,7 +64,7 @@
   <object id="38" x="2434" y="113" width="12" height="62"/>
   <object id="39" x="2690" y="205" width="160" height="17"/>
  </objectgroup>
- <objectgroup name="upper_margin" visible="0">
+ <objectgroup name="upper_margin">
   <object id="52" x="1" y="-1" width="6399.5" height="32.5"/>
  </objectgroup>
 </map>

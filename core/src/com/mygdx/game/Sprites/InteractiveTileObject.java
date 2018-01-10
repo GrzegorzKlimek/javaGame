@@ -16,6 +16,8 @@ import com.mygdx.game.JavaSimpleGame;
  */
 
 public abstract class InteractiveTileObject {
+
+
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;

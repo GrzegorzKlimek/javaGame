@@ -13,6 +13,7 @@ import com.mygdx.game.JavaSimpleGame;
 
 import com.mygdx.game.Sprites.Block;
 import com.mygdx.game.Sprites.Diamond;
+import com.mygdx.game.Sprites.InteractiveTileObjectFabric;
 
 /**
  * Created by Iksob on 2018-01-10.
@@ -21,63 +22,18 @@ import com.mygdx.game.Sprites.Diamond;
 public class B2WorldCreator {
     public B2WorldCreator(World world, TiledMap map){
 
-            BodyDef bdef = new BodyDef();
-            PolygonShape shape = new PolygonShape();
-            FixtureDef fdef = new FixtureDef();
-            Body body;
+            InteractiveTileObjectFabric tileObjectFabric = new InteractiveTileObjectFabric();
+            int [] tileObjLayersIndexes = InteractiveTileObjectFabric.objectLayers;
 
-        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            for (int i = 0; i < tileObjLayersIndexes.length; i++) {
+                int tileLayerObjIndex = tileObjLayersIndexes[i];
+                for (MapObject object : map.getLayers().get(tileLayerObjIndex).getObjects().getByType(RectangleMapObject.class)) {
+                    Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set( (rect.getX() + rect.getWidth() / 2)/ JavaSimpleGame.PPM, (rect.getY() + rect.getHeight() / 2) / JavaSimpleGame.PPM );
+                    tileObjectFabric.produce(world, map, rect, tileLayerObjIndex);
+                }
 
-            body = world.createBody(bdef);
-
-            shape.setAsBox( rect.getWidth() / 2/ JavaSimpleGame.PPM, rect.getHeight() / 2 / JavaSimpleGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-            for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-                bdef.type = BodyDef.BodyType.StaticBody;
-                bdef.position.set( (rect.getX() + rect.getWidth() / 2)/ JavaSimpleGame.PPM, (rect.getY() + rect.getHeight() / 2) / JavaSimpleGame.PPM );
-
-                body = world.createBody(bdef);
-
-                shape.setAsBox( rect.getWidth() / 2/ JavaSimpleGame.PPM, rect.getHeight() / 2 / JavaSimpleGame.PPM);
-                fdef.shape = shape;
-                body.createFixture(fdef);
             }
-
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set( (rect.getX() + rect.getWidth() / 2)/ JavaSimpleGame.PPM, (rect.getY() + rect.getHeight() / 2) / JavaSimpleGame.PPM );
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox( rect.getWidth() / 2/ JavaSimpleGame.PPM, rect.getHeight() / 2 / JavaSimpleGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            new Block(world, map, rect);
-        }
-
-        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            new Diamond(world, map, rect);
-        }
-
-
 
     }
 }

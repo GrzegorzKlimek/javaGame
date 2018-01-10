@@ -38,10 +38,6 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     private Player player;
-    private static final int TILED_GROUND_LAYER_INDEX = 1;
-    private static final int TILED_PLATFORM_LAYER_INDEX = 2;
-    private static final int TILED_LADDER_LAYER_INDEX = 4;
-    private static final int TILED_UPPER_MARGIN_LAYER_INDEX = 6;
 
     public PlayScreen(JavaSimpleGame game) {
         atlas = new TextureAtlas("PostacItp.pack");
@@ -60,42 +56,12 @@ public class PlayScreen implements Screen {
         new B2WorldCreator(world, map);
         player = new Player(world, this);
 
-
-       int [] objectLayerIndexes = {TILED_GROUND_LAYER_INDEX, TILED_PLATFORM_LAYER_INDEX, TILED_LADDER_LAYER_INDEX, TILED_UPPER_MARGIN_LAYER_INDEX};
-/*
-       for (int index : objectLayerIndexes) {
-           addObjectLayerToTheWorld (index);
-       }
-*/
-
     }
 
     public TextureAtlas getAtlas(){
         return atlas;
     }
-/*
-    private void addObjectLayerToTheWorld ( int indexOfLayer) {
 
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        for (MapObject object : map.getLayers().get(indexOfLayer).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set( (rect.getX() + rect.getWidth() / 2)/ JavaSimpleGame.PPM, (rect.getY() + rect.getHeight() / 2) / JavaSimpleGame.PPM );
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox( rect.getWidth() / 2/ JavaSimpleGame.PPM, rect.getHeight() / 2 / JavaSimpleGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-    }
-*/
 
     public  void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
