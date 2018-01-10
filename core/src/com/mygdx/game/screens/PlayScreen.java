@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -24,6 +25,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Scenes.Hud;
+import com.mygdx.game.Tools.B2WorldCreator;
 
 import Sprites.Player;
 
@@ -35,6 +37,7 @@ import Sprites.Player;
 public class PlayScreen implements Screen {
 
     private JavaSimpleGame game;
+    private TextureAtlas atlas;
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private Hud hud;
@@ -50,6 +53,7 @@ public class PlayScreen implements Screen {
     private static final int TILED_UPPER_MARGIN_LAYER_INDEX = 6;
 
     public PlayScreen(JavaSimpleGame game) {
+        atlas = new TextureAtlas("PostacItp.pack");
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(JavaSimpleGame.V_WIDTH / JavaSimpleGame.PPM, JavaSimpleGame.V_HEIGHT / JavaSimpleGame.PPM, gameCam);
@@ -62,18 +66,23 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0,-10 ), true);
         b2dr = new Box2DDebugRenderer();
-        player = new Player(world);
+        new B2WorldCreator(world, map);
+        player = new Player(world, this);
 
 
        int [] objectLayerIndexes = {TILED_GROUND_LAYER_INDEX, TILED_PLATFORM_LAYER_INDEX, TILED_LADDER_LAYER_INDEX, TILED_UPPER_MARGIN_LAYER_INDEX};
-
+/*
        for (int index : objectLayerIndexes) {
            addObjectLayerToTheWorld (index);
        }
-
+*/
 
     }
 
+    public TextureAtlas getAtlas(){
+        return atlas;
+    }
+/*
     private void addObjectLayerToTheWorld ( int indexOfLayer) {
 
         BodyDef bdef = new BodyDef();
@@ -95,8 +104,7 @@ public class PlayScreen implements Screen {
         }
 
     }
-
-
+*/
 
     public  void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
@@ -112,6 +120,8 @@ public class PlayScreen implements Screen {
     public void update(float dt) {
         handleInput(dt);
         world.step(1 / 60f, 6, 2);
+
+        player.update(dt);
 
         gameCam.position.x = player.b2body.getPosition().x;
         gameCam.update();
@@ -131,6 +141,11 @@ public class PlayScreen implements Screen {
 
         renderer.render();
         b2dr.render(world, gameCam.combined);
+
+        game.batch.setProjectionMatrix(gameCam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -160,6 +175,11 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        map.dispose();
+        renderer.dispose();
+        world.dispose();
+        b2dr.dispose();
+        hud.dispose();
 
     }
 }
