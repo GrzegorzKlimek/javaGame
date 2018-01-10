@@ -11,8 +11,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.JavaSimpleGame;
 
-import Sprites.Block;
-import Sprites.Diamond;
+import com.mygdx.game.Sprites.Block;
+import com.mygdx.game.Sprites.Diamond;
 
 /**
  * Created by Iksob on 2018-01-10.
