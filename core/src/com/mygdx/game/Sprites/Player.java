@@ -31,7 +31,7 @@ public class Player extends Sprite {
 
 
     public void update(float dt){
-        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()+1);
+        setPosition(b2body.getPosition().x , b2body.getPosition().y);
     }
 
 
@@ -39,7 +39,7 @@ public class Player extends Sprite {
 
     public void definePlayer () {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / JavaSimpleGame.PPM ,32 / JavaSimpleGame.PPM);
+        bdef.position.set(32 / JavaSimpleGame.PPM , 32 / JavaSimpleGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
