@@ -14,13 +14,16 @@ import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Sprites.Block;
 import com.mygdx.game.Sprites.Diamond;
 import com.mygdx.game.Sprites.InteractiveTileObjectFabric;
+import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by Iksob on 2018-01-10.
  */
 
 public class B2WorldCreator {
-    public B2WorldCreator(World world, TiledMap map){
+    public B2WorldCreator(PlayScreen screen){
+        World world = screen.getWorld();
+        TiledMap map=screen.getMap();
 
             InteractiveTileObjectFabric tileObjectFabric = new InteractiveTileObjectFabric();
             int [] tileObjLayersIndexes = InteractiveTileObjectFabric.objectLayers;

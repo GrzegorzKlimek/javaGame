@@ -22,17 +22,17 @@ public class Hud implements Disposable {
     private Viewport viewport;
     private Integer worldTimer;
     private float timeCount;
-    private Integer score;
+    private static Integer score;
 
-    Label coundDownLabel;
-    Label scoreLebel;
-    Label timeLebel;
-    Label levelLebel;
-    Label worldLebel;
-    Label gamerLebel;
+    private Label coundDownLabel;
+    private static Label scoreLebel;
+    private Label timeLebel;
+    private Label levelLebel;
+    private Label worldLebel;
+    private Label gamerLebel;
 
     public  Hud (SpriteBatch sb) {
-        worldTimer = 300;
+        worldTimer = 100;
         timeCount = 0;
         score = 0;
 
@@ -58,6 +58,21 @@ public class Hud implements Disposable {
         table.add(coundDownLabel).expandX();
         stage.addActor(table);
 
+    }
+
+    public void update(float dt){
+        timeCount += dt;
+        if(timeCount >= 1){
+            worldTimer--;
+            coundDownLabel.setText(String.format("%03d",worldTimer));
+            timeCount=0;
+        }
+    }
+
+    //?? czy potrzebne?
+    public void addScore(int value){
+        score+= value;
+        scoreLebel.setText(String.format("%06d", score));
     }
 
     @Override
