@@ -20,10 +20,10 @@ public class Player extends Sprite {
     private TextureRegion playerStand;
 
     public Player (World world, PlayScreen screen) {
-        super(screen.getAtlas().findRegion("Player"));
+        super(screen.getAtlas().findRegion("droid_from_android"));
         this.world = world;
         definePlayer();
-        playerStand = new TextureRegion(getTexture(), 0, 0, 17, 25 );
+        playerStand = new TextureRegion(getTexture(), 5, 5, 50, 80 );
         setBounds(0,0, 17/JavaSimpleGame.PPM, 25/JavaSimpleGame.PPM);
         setRegion(playerStand);
 
@@ -45,7 +45,7 @@ public class Player extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(12 / JavaSimpleGame.PPM);
+        shape.setRadius(10 / JavaSimpleGame.PPM);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);

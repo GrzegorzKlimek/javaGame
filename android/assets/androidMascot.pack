@@ -1,0 +1,12 @@
+
+androidMascot.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+droid_from_android
+  rotate: false
+  xy: 1, 1
+  size: 168, 720
+  orig: 168, 720
+  offset: 0, 0
+  index: -1

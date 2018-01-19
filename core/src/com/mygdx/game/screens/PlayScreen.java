@@ -41,7 +41,7 @@ public class PlayScreen implements Screen {
     private Player player;
 
     public PlayScreen(JavaSimpleGame game) {
-        atlas = new TextureAtlas("PostacItp.pack");
+        atlas = new TextureAtlas("androidMascot.pack");
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(JavaSimpleGame.V_WIDTH / JavaSimpleGame.PPM, JavaSimpleGame.V_HEIGHT / JavaSimpleGame.PPM, gameCam);
