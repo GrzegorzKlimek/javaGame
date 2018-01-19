@@ -1,0 +1,33 @@
+
+android_mascot.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+death
+  rotate: false
+  xy: 1, 6
+  size: 166, 69
+  orig: 166, 69
+  offset: 0, 0
+  index: -1
+running
+  rotate: false
+  xy: 169, 8
+  size: 162, 67
+  orig: 162, 67
+  offset: 0, 0
+  index: -1
+flying
+  rotate: false
+  xy: 333, 1
+  size: 156, 74
+  orig: 156, 74
+  offset: 0, 0
+  index: -1
+standing
+  rotate: false
+  xy: 491, 10
+  size: 156, 65
+  orig: 156, 65
+  offset: 0, 0
+  index: -1
