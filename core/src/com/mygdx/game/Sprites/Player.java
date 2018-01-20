@@ -51,8 +51,8 @@ public class Player extends Sprite {
         playerFly = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.FLYING));
         this.world = world;
         definePlayer();
-        Vector2 runningDroitTexturePos = getPositionOfPlayerTexture(State.FLYING, 2);
-        playerStand = new TextureRegion(getTexture(), (int) ( runningDroitTexturePos.x) , (int)( runningDroitTexturePos.y ) , PLAYER_TEXTURE_WIDTH, PLAYER_TEXTURE_HEIGHT );
+        Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(State.STANDING, 0);
+        playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , PLAYER_TEXTURE_WIDTH, PLAYER_TEXTURE_HEIGHT );
         setBounds(0,0, 17/JavaSimpleGame.PPM, 25/JavaSimpleGame.PPM);
         setRegion(playerStand);
 
