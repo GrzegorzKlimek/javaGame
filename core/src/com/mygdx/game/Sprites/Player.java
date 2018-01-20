@@ -23,27 +23,11 @@ public class Player extends Sprite {
     public static int PLAYER_TEXTURE_WIDTH = 55;
     public static int PLAYER_TEXTURE_HEIGHT = 80;
 
-    public static Vector2 DEATH_SPRITE_POSITION= new Vector2(1, 6);
-    public static Vector2 RUNNING_SPRITE_POSITION= new Vector2(169, 8);
-    public static Vector2 FLYING_SPRITE_POSITION= new Vector2(333, 1);
-    public static Vector2 STANDING_SPRITE_POSITION = new Vector2(491, 5);
-
-    public static int FIRST_DEATH_PICTURE_INDEX = 0;
-    public static int LAST_DEATH_PICTURE_INDEX = 2;
-
-    public static int FIRST_RUNNING_PICTURE_INDEX = 3;
-    public static int LAST_RUNNING_PICTURE_INDEX = 5;
-
-    public static int FIRST_FLYING_PICTURE_INDEX = 6;
-    public static int LAST_FLYING_PICTURE_INDEX = 8;
-
-    public static int FIRST_STANING_PICTURE_INDEX = 9;
-    public static int LAST_STANING_PICTURE_INDEX = 11;
-
-
-
-
-
+    public  Vector2 DEATH_SPRITE_POSITION= new Vector2(1, 6);
+    public  Vector2 RUNNING_SPRITE_POSITION= new Vector2(169, 8);
+    public  Vector2 FLYING_SPRITE_POSITION= new Vector2(333, 1);
+    public  Vector2 STANDING_SPRITE_POSITION = new Vector2(491, 5);
+    private float durrationOfAnimation = 0.1f;
 
     public enum State {DEATH, FLYING, STANDING, RUNNING};
     public State currentState;
@@ -51,8 +35,8 @@ public class Player extends Sprite {
     public World world;
     public Body b2body;
     private TextureRegion playerStand;
-    private Animation playerRun;
-    private Animation playerJump;
+    private Animation <TextureRegion> playerRun;
+    private Animation <TextureRegion>playerFly;
     private float stateTimer;
     private boolean runningRight;
 
@@ -63,12 +47,8 @@ public class Player extends Sprite {
         stateTimer = 0;
         runningRight = true;
 
-       Array<TextureRegion> frames = new Array<TextureRegion>();
-        for (int i = 0; i < 3; i++) {
-            frames.add( new TextureRegion(getTexture(),  (int) (i * FLYING_SPRITE_POSITION.x) , (i * FLYING_SPRITE_POSITION.y) , PLAYER_TEXTURE_WIDTH, PLAYER_TEXTURE_HEIGHT));
-        }
-
-
+        playerRun = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.RUNNING));
+        playerFly = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.FLYING));
         this.world = world;
         definePlayer();
         Vector2 runningDroitTexturePos = getPositionOfPlayerTexture(State.FLYING, 2);
@@ -104,13 +84,63 @@ public class Player extends Sprite {
         return  new Vector2( x + index * PLAYER_TEXTURE_WIDTH, y );
     }
 
+    private Array<TextureRegion> getFramesForPlayerActionAnimation (State actionOrStateOfPlayer) {
+        Vector2 playerTexturePos ;
+        Array<TextureRegion> frames = new Array<TextureRegion>();
 
-    public void update(float dt){
-        setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
+        for (int i = 0; i < 3; i++) {
+            playerTexturePos = getPositionOfPlayerTexture(actionOrStateOfPlayer, i);
+            frames.add(new TextureRegion(getTexture(), (int) ( playerTexturePos.x) , (int)( playerTexturePos.y ) , PLAYER_TEXTURE_WIDTH, PLAYER_TEXTURE_HEIGHT));
+        }
+        return frames;
     }
 
 
+    public void update(float dt){
+        setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
+        setRegion(getFrame(dt));
+    }
 
+    public TextureRegion getFrame (float deltaTime) {
+        currentState = getState();
+
+        TextureRegion region;
+        switch (currentState) {
+            case FLYING:
+                region =  playerFly.getKeyFrame(stateTimer, true);
+                break;
+            case RUNNING:
+                region = playerRun.getKeyFrame(stateTimer, true);
+                break;
+            case STANDING:
+                default:
+                region = playerStand;
+                break;
+        }
+        if ( (b2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
+            region.flip(true, false);
+            runningRight = false;
+        }
+        if ( (b2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
+            region.flip(true, false);
+            runningRight = true;
+        }
+        stateTimer = currentState == previousState ? stateTimer + deltaTime : 0;
+        previousState = currentState;
+        return  region;
+
+    }
+
+    public State getState() {
+        if (b2body.getLinearVelocity().y != 0) {
+            return  State.FLYING;
+        } else if (b2body.getLinearVelocity().x != 0) {
+            return  State.RUNNING;
+        } else {
+            return  State.STANDING;
+        }
+
+    }
 
     public void definePlayer () {
         BodyDef bdef = new BodyDef();
