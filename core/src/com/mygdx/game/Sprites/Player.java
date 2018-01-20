@@ -20,8 +20,11 @@ import com.mygdx.game.screens.PlayScreen;
  */
 
 public class Player extends Sprite {
-    public static int PLAYER_TEXTURE_WIDTH = 55;
-    public static int PLAYER_TEXTURE_HEIGHT = 80;
+    public static int TEXTURE_WIDTH_OF_PLAYER = 55;
+    public static int TEXTURE_HEIGHT_OF_PLAYER = 80;
+    private final int SHAPE_RADIUS_OF_BODY = 10;
+    public static String BODY_USER_DATA = "PlayerBody";
+
 
     public  Vector2 DEATH_SPRITE_POSITION= new Vector2(1, 6);
     public  Vector2 RUNNING_SPRITE_POSITION= new Vector2(169, 8);
@@ -52,7 +55,7 @@ public class Player extends Sprite {
         this.world = world;
         definePlayer();
         Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(State.STANDING, 0);
-        playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , PLAYER_TEXTURE_WIDTH, PLAYER_TEXTURE_HEIGHT );
+        playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER);
         setBounds(0,0, 17/JavaSimpleGame.PPM, 25/JavaSimpleGame.PPM);
         setRegion(playerStand);
 
@@ -81,7 +84,7 @@ public class Player extends Sprite {
             default:
                 throw new RuntimeException("illegal state of player in Player.getPositionOfPlayerTexture()");
         }
-        return  new Vector2( x + index * PLAYER_TEXTURE_WIDTH, y );
+        return  new Vector2( x + index * TEXTURE_WIDTH_OF_PLAYER, y );
     }
 
     private Array<TextureRegion> getFramesForPlayerActionAnimation (State actionOrStateOfPlayer) {
@@ -90,15 +93,15 @@ public class Player extends Sprite {
 
         for (int i = 0; i < 3; i++) {
             playerTexturePos = getPositionOfPlayerTexture(actionOrStateOfPlayer, i);
-            frames.add(new TextureRegion(getTexture(), (int) ( playerTexturePos.x) , (int)( playerTexturePos.y ) , PLAYER_TEXTURE_WIDTH, PLAYER_TEXTURE_HEIGHT));
+            frames.add(new TextureRegion(getTexture(), (int) ( playerTexturePos.x) , (int)( playerTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER));
         }
         return frames;
     }
 
 
     public void update(float dt){
-        setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
-        setRegion(getFrame(dt));
+       setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
+       setRegion(getFrame(dt));
     }
 
     public TextureRegion getFrame (float deltaTime) {
@@ -150,10 +153,12 @@ public class Player extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(10 / JavaSimpleGame.PPM);
+        shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
 
         fdef.shape = shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(BODY_USER_DATA);
+
+
     }
 
 

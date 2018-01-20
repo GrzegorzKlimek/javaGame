@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.game.Sprites.InteractiveTileObject;
+import com.mygdx.game.Sprites.Player;
 
 /**
  * Created by Iksob on 2018-01-12.
@@ -15,12 +18,24 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Gdx.app.log("Begin Contact","");
 
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if (fixA.getUserData().equals(Player.BODY_USER_DATA) || fixB.getUserData().equals(Player.BODY_USER_DATA)) {
+            Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
+            Fixture object = head == fixA ? fixB : fixA;
+            if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
+                ((InteractiveTileObject) object.getUserData()).onHeadHit();
+            }
+            if (object.getUserData() instanceof  InteractiveTileObject) {
+                ((InteractiveTileObject) object.getUserData() ).onHeadHit();
+            }
+        }
     }
 
     @Override
     public void endContact(Contact contact) {
         Gdx.app.log("End Contact","");
-
     }
 
     @Override
