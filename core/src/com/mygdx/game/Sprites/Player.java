@@ -154,6 +154,8 @@ public class Player extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
+        fdef.filter.categoryBits = JavaSimpleGame.PLAYER_BIT;
+        fdef.filter.maskBits = JavaSimpleGame.DIAMOND_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(BODY_USER_DATA);
