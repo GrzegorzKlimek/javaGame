@@ -16,7 +16,7 @@ public class Diamond extends InteractiveTileObject {
     public Diamond(World world, TiledMap map, Rectangle bounds){
         super(world, map, bounds);
         fixture.setUserData(this);
-        setCategoryFilter(JavaSimpleGame.DIAMOND_BIT);
+        setCategoryFilter(DIAMOND_BIT);
 
     }
 

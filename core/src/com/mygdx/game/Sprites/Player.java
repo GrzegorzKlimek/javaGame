@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.screens.PlayScreen;
 
 ;
@@ -154,8 +155,9 @@ public class Player extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
-        fdef.filter.categoryBits = JavaSimpleGame.PLAYER_BIT;
-        fdef.filter.maskBits = JavaSimpleGame.DIAMOND_BIT;
+        fdef.filter.categoryBits = TileObject.PLAYER_BIT;
+        fdef.filter.maskBits = TileObject.PLATFORM_BIT;
+
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(BODY_USER_DATA);
