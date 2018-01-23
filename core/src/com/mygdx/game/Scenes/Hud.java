@@ -22,7 +22,7 @@ public class Hud implements Disposable {
     private Viewport viewport;
     private Integer worldTimer;
     private float timeCount;
-    private static Integer score;
+    private int score;
 
     private Label coundDownLabel;
     private static Label scoreLebel;
@@ -34,7 +34,7 @@ public class Hud implements Disposable {
     public  Hud (SpriteBatch sb) {
         worldTimer = 100;
         timeCount = 0;
-        score = 0;
+        score = JavaSimpleGame.score;
 
         viewport = new FitViewport(JavaSimpleGame.V_HEIGHT, JavaSimpleGame.V_WIDTH, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -47,7 +47,7 @@ public class Hud implements Disposable {
         timeLebel = new Label("TIME", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         levelLebel= new Label("1-1", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         worldLebel= new Label("WORLD", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
-        gamerLebel =new Label("GAMER", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
+        gamerLebel =new Label("SCORE", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
 
         table.add(gamerLebel).expandX().padTop(10);
         table.add(worldLebel).expandX().padTop(10);
@@ -67,12 +67,14 @@ public class Hud implements Disposable {
             coundDownLabel.setText(String.format("%03d",worldTimer));
             timeCount=0;
         }
+        updateScore();
+
     }
 
-    //?? czy potrzebne?
-    public void addScore(int value){
-        score+= value;
-        scoreLebel.setText(String.format("%06d", score));
+
+    public void updateScore(){
+        score = JavaSimpleGame.score;
+        scoreLebel.setText(String.format("%06d",score));
     }
 
     @Override

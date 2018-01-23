@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.screens.PlayScreen;
 
 ;
@@ -21,7 +22,7 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class Player extends Sprite {
     public static int TEXTURE_WIDTH_OF_PLAYER = 55;
-    public static int TEXTURE_HEIGHT_OF_PLAYER = 80;
+    public static int TEXTURE_HEIGHT_OF_PLAYER = 78;
     private final int SHAPE_RADIUS_OF_BODY = 10;
     public static String BODY_USER_DATA = "PlayerBody";
 
@@ -90,12 +91,23 @@ public class Player extends Sprite {
     private Array<TextureRegion> getFramesForPlayerActionAnimation (State actionOrStateOfPlayer) {
         Vector2 playerTexturePos ;
         Array<TextureRegion> frames = new Array<TextureRegion>();
-
-        for (int i = 0; i < 3; i++) {
+        int interations = getFrameNumOfAction(actionOrStateOfPlayer);
+        for (int i = 0; i < interations; i++) {
             playerTexturePos = getPositionOfPlayerTexture(actionOrStateOfPlayer, i);
             frames.add(new TextureRegion(getTexture(), (int) ( playerTexturePos.x) , (int)( playerTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER));
         }
         return frames;
+    }
+
+    private int getFrameNumOfAction (State actionOrStateOfPlayer) {
+        switch (actionOrStateOfPlayer) {
+            case FLYING:
+                return 2;
+            case RUNNING:
+                return 3;
+            default:
+                return 2;
+        }
     }
 
 
@@ -154,6 +166,9 @@ public class Player extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
+        fdef.filter.categoryBits = TileObject.PLAYER_BIT;
+        fdef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT;
+
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(BODY_USER_DATA);

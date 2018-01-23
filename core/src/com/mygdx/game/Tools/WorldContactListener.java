@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.mygdx.game.Sprites.InteractiveTileObject;
+import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
 import com.mygdx.game.Sprites.Player;
 
 /**
@@ -22,11 +22,9 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         if (fixA.getUserData().equals(Player.BODY_USER_DATA) || fixB.getUserData().equals(Player.BODY_USER_DATA)) {
-            Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
+            Fixture head = fixA.getUserData().equals(Player.BODY_USER_DATA) ? fixA : fixB;
             Fixture object = head == fixA ? fixB : fixA;
-            if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractiveTileObject) object.getUserData()).onHeadHit();
-            }
+
             if (object.getUserData() instanceof  InteractiveTileObject) {
                 ((InteractiveTileObject) object.getUserData() ).onHeadHit();
             }

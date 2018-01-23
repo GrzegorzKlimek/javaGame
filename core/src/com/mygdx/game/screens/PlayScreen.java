@@ -28,6 +28,8 @@ import com.mygdx.game.Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
+    private String pathToTileMap = "level1.tmx";
+    private String pathToPacks = "packs/android_mascot.pack";
     private JavaSimpleGame game;
     private TextureAtlas atlas;
     private OrthographicCamera gameCam;
@@ -41,19 +43,20 @@ public class PlayScreen implements Screen {
     private Player player;
 
     public PlayScreen(JavaSimpleGame game) {
-        atlas = new TextureAtlas("packs/android_mascot.pack");
+        atlas = new TextureAtlas(pathToPacks);
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(JavaSimpleGame.V_WIDTH / JavaSimpleGame.PPM, JavaSimpleGame.V_HEIGHT / JavaSimpleGame.PPM, gameCam);
         hud = new Hud(game.batch);
 
         maploader = new TmxMapLoader();
-        map = maploader.load("mapa-do-gry.tmx");
+        map = maploader.load(pathToTileMap);
         renderer = new OrthogonalTiledMapRenderer(map , 1/JavaSimpleGame.PPM);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0,-10 ), true);
         b2dr = new Box2DDebugRenderer();
+       b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
         player = new Player(world, this);
 
