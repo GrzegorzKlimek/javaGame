@@ -156,7 +156,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
         fdef.filter.categoryBits = TileObject.PLAYER_BIT;
-        fdef.filter.maskBits = TileObject.PLATFORM_BIT;
+        fdef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT;
 
 
         fdef.shape = shape;

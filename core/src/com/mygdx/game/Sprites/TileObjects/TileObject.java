@@ -61,8 +61,8 @@ public abstract class TileObject {
 
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        return layer.getCell((int)(body.getPosition().x * JavaSimpleGame.PPM / 16),
-                (int)(body.getPosition().y * JavaSimpleGame.PPM / 16));
+        return layer.getCell((int)(body.getPosition().x * JavaSimpleGame.PPM / JavaSimpleGame.MAP_TILE_WITH),
+                (int)(body.getPosition().y * JavaSimpleGame.PPM / JavaSimpleGame.MAP_TILE_HEIGHT));
     }
 
 }

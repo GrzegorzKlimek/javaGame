@@ -14,9 +14,11 @@ import com.mygdx.game.Sprites.TileObjects.Concerete.Spike;
 public class TileObjectFabric {
 
 
-    public static final int TILED_PLATFORM_LAYER_INDEX = 1;
-    public static final int TILED_DIAMONDS_LAYER_INDEX = 2;
-    public static final int TILED_SPIKES_LAYER_INDEX = 3;
+    public static final int TILED_PLATFORM_LAYER_INDEX = 2;
+    public static final int TILED_DIAMONDS_LAYER_INDEX = 3;
+    public static final int TILED_SPIKES_LAYER_INDEX = 4;
+    public static final int BODIES_LAYER_INDEX = 1;
+    public static final int BACKGROUND_LAYER_INDEX = 0;
 
 
 

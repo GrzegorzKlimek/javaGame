@@ -22,11 +22,9 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         if (fixA.getUserData().equals(Player.BODY_USER_DATA) || fixB.getUserData().equals(Player.BODY_USER_DATA)) {
-            Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
+            Fixture head = fixA.getUserData().equals(Player.BODY_USER_DATA) ? fixA : fixB;
             Fixture object = head == fixA ? fixB : fixA;
-            if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractiveTileObject) object.getUserData()).onHeadHit();
-            }
+
             if (object.getUserData() instanceof  InteractiveTileObject) {
                 ((InteractiveTileObject) object.getUserData() ).onHeadHit();
             }
