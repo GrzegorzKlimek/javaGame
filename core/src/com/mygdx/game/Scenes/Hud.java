@@ -47,7 +47,7 @@ public class Hud implements Disposable {
         timeLebel = new Label("TIME", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         levelLebel= new Label("1-1", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         worldLebel= new Label("WORLD", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
-        gamerLebel =new Label("GAMER", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
+        gamerLebel =new Label("SCORE", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
 
         table.add(gamerLebel).expandX().padTop(10);
         table.add(worldLebel).expandX().padTop(10);

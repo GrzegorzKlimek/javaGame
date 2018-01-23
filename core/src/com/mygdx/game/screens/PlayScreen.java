@@ -56,6 +56,7 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0,-10 ), true);
         b2dr = new Box2DDebugRenderer();
+       b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
         player = new Player(world, this);
 

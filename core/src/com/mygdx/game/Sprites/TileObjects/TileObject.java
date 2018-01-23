@@ -57,6 +57,7 @@ public abstract class TileObject {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
+
     }
 
     public TiledMapTileLayer.Cell getCell(){

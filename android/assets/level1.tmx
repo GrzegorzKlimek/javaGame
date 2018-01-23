@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="150" height="14" tilewidth="16" tileheight="16" nextobjectid="99">
+<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="150" height="14" tilewidth="16" tileheight="16" nextobjectid="108">
  <tileset firstgid="1" source="batches/Batch4.tsx"/>
  <layer name="background" width="150" height="14">
   <data encoding="base64" compression="zlib">
@@ -11,10 +11,7 @@
    eJztmMly00AQhmV5IYTAQwB3lgLCO0AOcKSK5cITAAdyDktB2CEsSdhXE3B8Z7lwJgUJxL6G5QJ3KolZ/ilP4652jyRHWANVHL7qSTSSxurP3WMNh0FwCpwGZ8BZcA6cBxfARXAJjIDL4Aq4Cq6BUTAGxsF1cAPcBLfAbXAH3AX3wH3wADwEJ8BJMPz/3pnc28d953PJeKzMHQJHwFFwDBy38PGuBFTDZPOi2Ay2sNgPtoIXuPZL8DOnE3c86RzDjkIQ7Cy0n8vPj7uWdo2o/xsqYFKJVWXM5/BjJr9R59F4KiELjEUWG8KhacWrCfAEPGX3nhTjJE7U/4BXu8EeFqVfcU78q5hnPQtqNlZYnBTjKpsrvZoO9Xl1Mf4mmGKRszpsQm7RWLq1qHg1A96B9+zeNTFO4lZSr17n3ceoblIkv/aCfX9B/rvlFHlALnC3yAVX7eFzTH41l6SXUzYP3KmBfLtvxqM1YcsvzauFsHnfBnNrMN88/h38sJ8zCJvwcRK30vbBubBVNynK/hyVn5G8f0fSOKX1OukPr1/kjnluZZFffp6rXlFNovEyPL8esBz0WuaZW2stcT1R5ozGLs9qMV7IenU4oi7F7a+ofsr+7NuDbnnFPagzd7gLpr7w/he1B9PqnKxXvAca1uH668EGsNFCXsk6RT2RfOM5lDkjr2ZybrdcvgT4Xw6ES3DJtW8365P9OYtcy7rXzTrI+5RWV1z7c61u8TGdI/uf3F9xv8q59p7M/eFuaU6Z3qf9BhyyNHK6VzQv7d486b49yqlPxSD4XGxF33UnTa0y+ZM9iCL3zuWQ65jm7DM8q+fFVuT1ak7szerCH9kT6Ro8f9pvwAnLjGXCMS+tOz0lPLdSK0bt2/m+iteNlThvVakV6Vpp6lJW9U/WKpM/2YMouuqUGQ/m43/7RTnF3SK/pFfauyr5nabI+ySvB+QT1Sv6W9aN3/tsXOsD+Fhcmk+aX3Lfru2rXJ+LYieOPUJuyhafdcv17kr2sU7ebVVFjvhYPrOKdUuer3klv9MUeS3jfY58oh7o6ofkSS+utQL0ldL5xL0ih7UeSPNcn0vWriR+vYFPby2+vJLuRL13ituPyZ7Ic8TH8pm5+u32gj/6lb36No/rScKA4523j3WbtfD3CvK9lc9nOYTc9nliv9IHv2BNrzrgYMYccnh1wNNaZlmtkF5ltaYxBePVJk+4vPraAdpn6iZRXmW9lvFCdC8bzWgd2vf9F+/SbxU=
   </data>
  </layer>
- <objectgroup name="platforms" visible="0">
-  <object id="2" x="163" y="17">
-   <polyline points="0,0 1,30 -5,33 -4,44 -5,46 -18,47 -17,53 1,64 9,64 28,51 28,47 10,46 12,32 6,28 8,-4 2,0"/>
-  </object>
+ <objectgroup name="platforms">
   <object id="3" x="0" y="176" width="511" height="47"/>
   <object id="4" x="463" y="144" width="48" height="29"/>
   <object id="5" x="81" y="147" width="90" height="27"/>
@@ -34,18 +31,17 @@
   <object id="31" x="1026" y="127" width="29" height="13"/>
   <object id="32" x="1249" y="145" width="47" height="27"/>
   <object id="36" x="2081" y="14" width="11" height="50"/>
-  <object id="37" x="2066" y="65">
-   <polygon points="0,0 12,14 31,12 50,0 24,1"/>
-  </object>
   <object id="84" x="530" y="14" width="11" height="82"/>
-  <object id="85" x="512" y="95">
-   <polygon points="0,0 49,3 35,18 18,17 12,11"/>
-  </object>
   <object id="86" x="657" y="143" width="125" height="30"/>
   <object id="87" x="688" y="129" width="60" height="16"/>
   <object id="88" x="625" y="160" width="35" height="15"/>
+  <object id="99" x="1" y="0" width="2399" height="15"/>
+  <object id="100" x="2013" y="-176"/>
+  <object id="103" x="162" y="16" width="12" height="47"/>
+  <object id="106" x="146" y="65" width="44" height="15"/>
+  <object id="107" x="512" y="96" width="47" height="16"/>
  </objectgroup>
- <objectgroup name="diamont" visible="0">
+ <objectgroup name="diamont">
   <object id="40" x="223" y="65" width="19" height="13"/>
   <object id="42" x="177" y="113" width="14" height="13"/>
   <object id="44" x="432" y="97" width="15" height="12"/>
@@ -66,7 +62,7 @@
   <object id="74" x="2257" y="47" width="14" height="16"/>
   <object id="77" x="2321" y="109" width="14" height="18"/>
  </objectgroup>
- <objectgroup name="spikes" visible="0">
+ <objectgroup name="spikes">
   <object id="90" x="893" y="16" width="33" height="16"/>
   <object id="91" x="1024" y="16" width="32" height="16"/>
   <object id="92" x="1171" y="14" width="28" height="19"/>

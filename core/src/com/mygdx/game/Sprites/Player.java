@@ -22,7 +22,7 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class Player extends Sprite {
     public static int TEXTURE_WIDTH_OF_PLAYER = 55;
-    public static int TEXTURE_HEIGHT_OF_PLAYER = 80;
+    public static int TEXTURE_HEIGHT_OF_PLAYER = 78;
     private final int SHAPE_RADIUS_OF_BODY = 10;
     public static String BODY_USER_DATA = "PlayerBody";
 
@@ -91,12 +91,23 @@ public class Player extends Sprite {
     private Array<TextureRegion> getFramesForPlayerActionAnimation (State actionOrStateOfPlayer) {
         Vector2 playerTexturePos ;
         Array<TextureRegion> frames = new Array<TextureRegion>();
-
-        for (int i = 0; i < 3; i++) {
+        int interations = getFrameNumOfAction(actionOrStateOfPlayer);
+        for (int i = 0; i < interations; i++) {
             playerTexturePos = getPositionOfPlayerTexture(actionOrStateOfPlayer, i);
             frames.add(new TextureRegion(getTexture(), (int) ( playerTexturePos.x) , (int)( playerTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER));
         }
         return frames;
+    }
+
+    private int getFrameNumOfAction (State actionOrStateOfPlayer) {
+        switch (actionOrStateOfPlayer) {
+            case FLYING:
+                return 2;
+            case RUNNING:
+                return 3;
+            default:
+                return 2;
+        }
     }
 
 
