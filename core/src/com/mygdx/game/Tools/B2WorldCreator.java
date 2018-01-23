@@ -4,16 +4,9 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.JavaSimpleGame;
 
-import com.mygdx.game.Sprites.Block;
-import com.mygdx.game.Sprites.Diamond;
-import com.mygdx.game.Sprites.InteractiveTileObjectFabric;
+import com.mygdx.game.Sprites.TileObjects.TileObjectFabric;
 import com.mygdx.game.screens.PlayScreen;
 
 /**
@@ -25,8 +18,8 @@ public class B2WorldCreator {
         World world = screen.getWorld();
         TiledMap map=screen.getMap();
 
-            InteractiveTileObjectFabric tileObjectFabric = new InteractiveTileObjectFabric();
-            int [] tileObjLayersIndexes = InteractiveTileObjectFabric.objectLayers;
+            TileObjectFabric tileObjectFabric = new TileObjectFabric();
+            int [] tileObjLayersIndexes = TileObjectFabric.objectLayers;
 
             for (int i = 0; i < tileObjLayersIndexes.length; i++) {
                 int tileLayerObjIndex = tileObjLayersIndexes[i];

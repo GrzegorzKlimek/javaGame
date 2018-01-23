@@ -28,7 +28,7 @@ import com.mygdx.game.Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
-    private String pathToTileMap = "mapa-do-gry.tmx";
+    private String pathToTileMap = "level1.tmx";
     private String pathToPacks = "packs/android_mascot.pack";
     private JavaSimpleGame game;
     private TextureAtlas atlas;
