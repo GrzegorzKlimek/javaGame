@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.Sprites.agents.enemies.Enemy;
+import com.mygdx.game.Tools.Map;
 import com.mygdx.game.screens.PlayScreen;
 
 /**
@@ -21,22 +22,21 @@ public class Evil extends Enemy {
 
     @Override
     protected void defineEnemy(){
+        Map map = screen.getMap();
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / JavaSimpleGame.PPM , 32 / JavaSimpleGame.PPM);
+        bdef.position.set(32 / map.getPpm() , 32 /  map.getPpm());
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(12 / JavaSimpleGame.PPM);
+        shape.setRadius(12 /  map.getPpm());
         fdef.filter.categoryBits = TileObject.ENEMY_BIT;
         fdef.filter.maskBits = TileObject.PLATFORM_BIT |
 
                 TileObject.DIAMOND_BIT |
                 TileObject.ENEMY_BIT |
                 TileObject.OBJECT_BIT;
-
-
 
 
         fdef.shape = shape;

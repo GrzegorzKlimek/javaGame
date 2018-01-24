@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.Tools.Map;
+import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by grzegorz on 23.01.18.
@@ -28,29 +30,29 @@ public abstract class TileObject {
 
 
     protected World world;
-    protected TiledMap map;
+    protected Map map;
     protected Rectangle bounds;
     protected Body body;
     protected Fixture fixture;
 
 
-    public  TileObject(World world, TiledMap map, Rectangle bounds){
-        this.world = world;
-        this.map=map;
+    public  TileObject(PlayScreen screen, Rectangle bounds){
+        this.world = screen.getWorld();
+        this.map = screen.getMap();
         this.bounds=bounds;
 
-        BodyDef bdef = new BodyDef();
-        FixtureDef fdef = new FixtureDef();
+        BodyDef bodyDef = new BodyDef();
+        FixtureDef fixtureDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
-        bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set( (bounds.getX() + bounds.getWidth() / 2)/ JavaSimpleGame.PPM, (bounds.getY() + bounds.getHeight() / 2) / JavaSimpleGame.PPM );
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set( (bounds.getX() + bounds.getWidth() / 2)/ map.getPpm(), (bounds.getY() + bounds.getHeight() / 2) / map.getPpm() );
 
-        body = world.createBody(bdef);
+        body = world.createBody(bodyDef);
 
-        shape.setAsBox( bounds.getWidth() / 2/ JavaSimpleGame.PPM, bounds.getHeight() / 2 / JavaSimpleGame.PPM);
-        fdef.shape = shape;
-        fixture = body.createFixture(fdef);
+        shape.setAsBox( bounds.getWidth() / 2/ map.getPpm(), bounds.getHeight() / 2 / map.getPpm());
+        fixtureDef.shape = shape;
+        fixture = body.createFixture(fixtureDef);
 
     }
     public void setCategoryFilter(short filterBit){
@@ -61,9 +63,9 @@ public abstract class TileObject {
     }
 
     public TiledMapTileLayer.Cell getCell(){
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        return layer.getCell((int)(body.getPosition().x * JavaSimpleGame.PPM / JavaSimpleGame.MAP_TILE_WITH),
-                (int)(body.getPosition().y * JavaSimpleGame.PPM / JavaSimpleGame.MAP_TILE_HEIGHT));
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getTiledMap().getLayers().get(1);
+        return layer.getCell((int)(body.getPosition().x * map.getPpm() / map.getTileWith()),
+                (int)(body.getPosition().y *  map.getPpm() / map.getTileHeight()));
     }
 
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
+import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by grzegorz on 10.01.18.
@@ -11,9 +12,9 @@ import com.mygdx.game.Sprites.TileObjects.TileObject;
 
 public class Platform extends TileObject {
 
-    public Platform(World world, TiledMap map, Rectangle bounds){
+    public Platform(PlayScreen screen, Rectangle bounds){
 
-        super(world, map, bounds);
+        super(screen, bounds);
         fixture.setUserData(this);
         setCategoryFilter(PLATFORM_BIT);
     }

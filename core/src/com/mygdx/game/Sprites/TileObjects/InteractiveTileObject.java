@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.screens.PlayScreen;
 
 
 /**
@@ -20,8 +21,8 @@ import com.mygdx.game.JavaSimpleGame;
 
 public abstract class InteractiveTileObject extends  TileObject {
 
-    protected InteractiveTileObject (World world, TiledMap map, Rectangle bounds) {
-        super(world, map, bounds);
+    protected InteractiveTileObject (PlayScreen screen, Rectangle bounds) {
+        super(screen, bounds);
     }
 
     public abstract void onHeadHit();

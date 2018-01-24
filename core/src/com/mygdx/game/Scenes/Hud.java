@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.Tools.Map;
 
 
 /**
@@ -31,12 +32,12 @@ public class Hud implements Disposable {
     private Label worldLebel;
     private Label gamerLebel;
 
-    public  Hud (SpriteBatch sb) {
+    public  Hud (SpriteBatch sb, Map map) {
         worldTimer = 100;
         timeCount = 0;
         score = JavaSimpleGame.score;
 
-        viewport = new FitViewport(JavaSimpleGame.V_HEIGHT, JavaSimpleGame.V_WIDTH, new OrthographicCamera());
+        viewport = new FitViewport(map.getHeight(), map.getWidth(), new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();

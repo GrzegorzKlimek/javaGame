@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
+import com.mygdx.game.Tools.Map;
 import com.mygdx.game.screens.PlayScreen;
 
 ;
@@ -37,6 +38,7 @@ public class Player extends Sprite {
     public State currentState;
     public State previousState;
     public World world;
+    public Map map;
     public Body b2body;
     private TextureRegion playerStand;
     private Animation <TextureRegion> playerRun;
@@ -46,6 +48,7 @@ public class Player extends Sprite {
 
     public Player ( PlayScreen screen) {
         super(screen.getAtlas().findRegion("standing"));
+        this.map = screen.getMap();
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
@@ -57,7 +60,7 @@ public class Player extends Sprite {
         definePlayer();
         Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(State.STANDING, 0);
         playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER);
-        setBounds(0,0, 17/JavaSimpleGame.PPM, 25/JavaSimpleGame.PPM);
+        setBounds(0,0, 17/map.getPpm(), 25/map.getPpm());
         setRegion(playerStand);
 
     }
@@ -159,13 +162,13 @@ public class Player extends Sprite {
 
     public void definePlayer () {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / JavaSimpleGame.PPM , 32 / JavaSimpleGame.PPM);
+        bdef.position.set(32 / map.getPpm() , 32 / map.getPpm());
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
+        shape.setRadius(SHAPE_RADIUS_OF_BODY / map.getPpm());
         fdef.filter.categoryBits = TileObject.PLAYER_BIT;
         fdef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT | TileObject.SPIKE_BIT;
 

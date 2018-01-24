@@ -15,18 +15,17 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class B2WorldCreator {
     public B2WorldCreator(PlayScreen screen){
-        World world = screen.getWorld();
-        TiledMap map=screen.getMap();
+
 
             TileObjectFabric tileObjectFabric = new TileObjectFabric();
             int [] tileObjLayersIndexes = TileObjectFabric.objectLayers;
 
             for (int i = 0; i < tileObjLayersIndexes.length; i++) {
                 int tileLayerObjIndex = tileObjLayersIndexes[i];
-                for (MapObject object : map.getLayers().get(tileLayerObjIndex).getObjects().getByType(RectangleMapObject.class)) {
+                for (MapObject object : screen.getMap().getTiledMap().getLayers().get(tileLayerObjIndex).getObjects().getByType(RectangleMapObject.class)) {
                     Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-                    tileObjectFabric.produce(world, map, rect, tileLayerObjIndex);
+                    tileObjectFabric.produce(screen, rect, tileLayerObjIndex);
                 }
 
             }

@@ -19,6 +19,7 @@ import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Tools.B2WorldCreator;
 
 import com.mygdx.game.Sprites.agents.Player;
+import com.mygdx.game.Tools.Map;
 import com.mygdx.game.Tools.WorldContactListener;
 
 
@@ -35,8 +36,7 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private Hud hud;
-    private TmxMapLoader maploader;
-    private TiledMap map;
+    private Map map;
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -46,12 +46,10 @@ public class PlayScreen implements Screen {
         atlas = new TextureAtlas(pathToPacks);
         this.game = game;
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(JavaSimpleGame.V_WIDTH / JavaSimpleGame.PPM, JavaSimpleGame.V_HEIGHT / JavaSimpleGame.PPM, gameCam);
-        hud = new Hud(game.batch);
-
-        maploader = new TmxMapLoader();
-        map = maploader.load(pathToTileMap);
-        renderer = new OrthogonalTiledMapRenderer(map , 1/JavaSimpleGame.PPM);
+        map = new Map();
+        gamePort = new FitViewport(map.getWidth() / map.getPpm(),  map.getHeight()/ map.getPpm(), gameCam);
+        hud = new Hud(game.batch, map);
+        renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/map.getPpm());
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0,-10 ), true);
@@ -122,7 +120,7 @@ public class PlayScreen implements Screen {
 
     }
 
-    public TiledMap getMap(){
+    public Map getMap(){
         return map;
     }
 
@@ -154,3 +152,4 @@ public class PlayScreen implements Screen {
 
     }
 }
+

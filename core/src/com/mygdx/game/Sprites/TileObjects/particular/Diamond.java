@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
+import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by Iksob on 2018-01-10.
@@ -14,8 +15,8 @@ import com.mygdx.game.Sprites.TileObjects.TileObject;
 
 
 public class Diamond extends InteractiveTileObject {
-    public Diamond(World world, TiledMap map, Rectangle bounds){
-        super(world, map, bounds);
+    public Diamond(PlayScreen screen, Rectangle bounds){
+        super(screen, bounds);
         fixture.setUserData(this);
         setCategoryFilter(DIAMOND_BIT);
 
