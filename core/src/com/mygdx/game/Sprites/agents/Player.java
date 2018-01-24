@@ -1,4 +1,4 @@
-package com.mygdx.game.Sprites;
+package com.mygdx.game.Sprites.agents;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -44,7 +44,7 @@ public class Player extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public Player (World world, PlayScreen screen) {
+    public Player ( PlayScreen screen) {
         super(screen.getAtlas().findRegion("standing"));
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -53,7 +53,7 @@ public class Player extends Sprite {
 
         playerRun = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.RUNNING));
         playerFly = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.FLYING));
-        this.world = world;
+        this.world = screen.getWorld();
         definePlayer();
         Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(State.STANDING, 0);
         playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER);
@@ -91,15 +91,15 @@ public class Player extends Sprite {
     private Array<TextureRegion> getFramesForPlayerActionAnimation (State actionOrStateOfPlayer) {
         Vector2 playerTexturePos ;
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        int interations = getFrameNumOfAction(actionOrStateOfPlayer);
-        for (int i = 0; i < interations; i++) {
+        int iterations = getActionFramesNumber(actionOrStateOfPlayer);
+        for (int i = 0; i < iterations; i++) {
             playerTexturePos = getPositionOfPlayerTexture(actionOrStateOfPlayer, i);
             frames.add(new TextureRegion(getTexture(), (int) ( playerTexturePos.x) , (int)( playerTexturePos.y ) , TEXTURE_WIDTH_OF_PLAYER, TEXTURE_HEIGHT_OF_PLAYER));
         }
         return frames;
     }
 
-    private int getFrameNumOfAction (State actionOrStateOfPlayer) {
+    private int getActionFramesNumber(State actionOrStateOfPlayer) {
         switch (actionOrStateOfPlayer) {
             case FLYING:
                 return 2;
@@ -167,7 +167,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / JavaSimpleGame.PPM);
         fdef.filter.categoryBits = TileObject.PLAYER_BIT;
-        fdef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT;
+        fdef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT | TileObject.SPIKE_BIT;
 
 
         fdef.shape = shape;

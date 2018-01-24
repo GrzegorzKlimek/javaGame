@@ -1,11 +1,8 @@
-package com.mygdx.game.Sprites.TileObjects.Concerete;
+package com.mygdx.game.Sprites.TileObjects.particular;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.JavaSimpleGame;
-import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 
 /**

@@ -1,4 +1,4 @@
-package com.mygdx.game.Sprites.TileObjects.Concerete;
+package com.mygdx.game.Sprites.TileObjects.particular;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;

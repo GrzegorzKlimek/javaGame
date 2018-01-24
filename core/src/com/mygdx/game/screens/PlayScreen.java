@@ -18,7 +18,7 @@ import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Tools.B2WorldCreator;
 
-import com.mygdx.game.Sprites.Player;
+import com.mygdx.game.Sprites.agents.Player;
 import com.mygdx.game.Tools.WorldContactListener;
 
 
@@ -58,7 +58,7 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
        b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
-        player = new Player(world, this);
+        player = new Player(this);
 
         world.setContactListener(new WorldContactListener());
 

@@ -3,9 +3,9 @@ package com.mygdx.game.Sprites.TileObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Sprites.TileObjects.Concerete.Diamond;
-import com.mygdx.game.Sprites.TileObjects.Concerete.Platform;
-import com.mygdx.game.Sprites.TileObjects.Concerete.Spike;
+import com.mygdx.game.Sprites.TileObjects.particular.Diamond;
+import com.mygdx.game.Sprites.TileObjects.particular.Platform;
+import com.mygdx.game.Sprites.TileObjects.particular.Spike;
 
 /**
  * Created by grzegorz on 10.01.18.
