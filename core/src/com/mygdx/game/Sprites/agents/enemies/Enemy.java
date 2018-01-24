@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites.agents.enemies;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Sprites.agents.SpriteAgents;
 import com.mygdx.game.screens.PlayScreen;
 
 /**

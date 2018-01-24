@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
  */
 
 public class Map extends TiledMap {
-    private String pathToTileMap = "level1.tmx";
+
     private TiledMap tileMap;
     private   int width = 400;
     private   int height = 250;
@@ -24,7 +24,7 @@ public class Map extends TiledMap {
 
 
 
-    public Map () {
+    public Map (String pathToTileMap) {
 
         tileMap = new TmxMapLoader().load(pathToTileMap);
     }

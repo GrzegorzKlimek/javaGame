@@ -17,7 +17,7 @@ import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Tools.B2WorldCreator;
 
-import com.mygdx.game.Sprites.agents.Player;
+import com.mygdx.game.Sprites.agents.protagonist.Player;
 import com.mygdx.game.Tools.Map;
 import com.mygdx.game.Tools.WorldContactListener;
 
@@ -28,7 +28,7 @@ import com.mygdx.game.Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
-    private String pathToTileMap = "level1.tmx";
+    private String pathToFirstTileMap = "level1.tmx";
     private String pathToPacks = "packs/android_mascot.pack";
     private AndroidAdventures game;
     private TextureAtlas atlas;
@@ -45,7 +45,7 @@ public class PlayScreen implements Screen {
         atlas = new TextureAtlas(pathToPacks);
         this.game = game;
         gameCam = new OrthographicCamera();
-        map = new Map();
+        map = new Map(pathToFirstTileMap);
         gamePort = new FitViewport(map.getWidth() / map.getPpm(),  map.getHeight()/ map.getPpm(), gameCam);
         hud = new Hud(game, map);
         renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/map.getPpm());

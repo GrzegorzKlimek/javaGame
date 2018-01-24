@@ -1,0 +1,158 @@
+package com.mygdx.game.Sprites.agents.protagonist;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Sprites.SpriteUtilities;
+import com.mygdx.game.Sprites.agents.SpriteAgents;
+import com.mygdx.game.screens.PlayScreen;
+
+;
+
+/**
+ * Created by grzegorz on 03.01.18.
+ */
+
+public class Player extends SpriteAgents {
+
+
+    public static String BODY_USER_DATA = "PlayerBody";
+    private float durationOfAnimation = 0.1f;
+
+    private  static  Vector2 START_POSITION = new Vector2(32,32);
+    private static  Vector2 DEATH_TEXTURE_POSITION= new Vector2(1, 6);
+    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(169, 8);
+    private static Vector2 FLYING_TEXTURE_POSITION= new Vector2(333, 1);
+    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(491, 5);
+
+
+    public STATE currentState;
+    public STATE previousState;
+    private TextureRegion playerStand;
+    private Animation <TextureRegion> playerRun;
+    private Animation <TextureRegion>playerFly;
+    private float stateTimer;
+    private boolean runningRight;
+
+    public Player ( PlayScreen screen) {
+        super(screen, START_POSITION, "flying", 10, 55,78);
+        currentState = STATE.STANDING;
+        previousState = STATE.STANDING;
+        stateTimer = 0;
+        runningRight = true;
+        defineAgent(startPosition, SpriteUtilities.PLAYER_BIT, BODY_USER_DATA);
+        playerRun = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.RUNNING));
+        playerFly = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.FLYING));
+        Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(STATE.STANDING, 0);
+        playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , textureWith, textureHeight);
+        setBounds(0,0, 17/map.getPpm(), 25/map.getPpm());
+        setRegion(playerStand);
+
+    }
+
+    private Vector2 getPositionOfPlayerTexture (STATE state, int index) {
+        float x;
+        float y;
+        switch (state) {
+            case DEATH:
+                x = deathTexturePos.x;
+                y = deathTexturePos.y;
+                break;
+            case FLYING:
+                x = flyingTexturePos.x;
+                y = flyingTexturePos.y;
+                break;
+            case RUNNING:
+                x= runningTexturePos.x;
+                y = runningTexturePos.y;
+                break;
+            case STANDING:
+                x = standingTexturePos.x;
+                y = standingTexturePos.y;
+                break;
+            default:
+                throw new RuntimeException("illegal state of player in Player.getPositionOfPlayerTexture()");
+        }
+        return  new Vector2( x + index * textureWith, y );
+    }
+
+    private Array<TextureRegion> getFramesForPlayerActionAnimation (STATE actionOrStateOfPlayer) {
+        Vector2 playerTexturePos ;
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+        int iterations = getActionFramesNumber(actionOrStateOfPlayer);
+        for (int i = 0; i < iterations; i++) {
+
+            frames.add(SpriteUtilities.loadTexture(this, actionOrStateOfPlayer, i));
+        }
+        return frames;
+    }
+
+    private int getActionFramesNumber(STATE actionOrStateOfPlayer) {
+        switch (actionOrStateOfPlayer) {
+            case FLYING:
+                return 2;
+            case RUNNING:
+                return 3;
+            default:
+                return 2;
+        }
+    }
+
+
+    public void update(float dt){
+       setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
+       setRegion(getFrame(dt));
+    }
+
+    private TextureRegion getFrame (float deltaTime) {
+        currentState = getState();
+
+        TextureRegion region;
+        switch (currentState) {
+            case FLYING:
+                region =  playerFly.getKeyFrame(stateTimer, true);
+                break;
+            case RUNNING:
+                region = playerRun.getKeyFrame(stateTimer, true);
+                break;
+            case STANDING:
+                default:
+                region = playerStand;
+                break;
+        }
+        if ( (b2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
+            region.flip(true, false);
+            runningRight = false;
+        }
+        if ( (b2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
+            region.flip(true, false);
+            runningRight = true;
+        }
+        stateTimer = currentState == previousState ? stateTimer + deltaTime : 0;
+        previousState = currentState;
+        return  region;
+
+    }
+
+    public STATE getState() {
+        if (b2body.getLinearVelocity().y != 0) {
+            return  STATE.FLYING;
+        } else if (b2body.getLinearVelocity().x != 0) {
+            return  STATE.RUNNING;
+        } else {
+            return  STATE.STANDING;
+        }
+
+    }
+
+    @Override
+    public void defineAgent (Vector2 startPosition , short agentBit, String userData) {
+        super.defineAgent(startPosition, agentBit, userData);
+        super.defineTexturesPositions(DEATH_TEXTURE_POSITION, RUNNING_TEXTURE_POSITION, FLYING_TEXTURE_POSITION, STANDING_TEXTURE_POSITION );
+    }
+
+
+}
+
+
