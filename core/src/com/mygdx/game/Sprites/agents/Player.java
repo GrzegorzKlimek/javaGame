@@ -31,7 +31,7 @@ public class Player extends Sprite {
     public  Vector2 RUNNING_SPRITE_POSITION= new Vector2(169, 8);
     public  Vector2 FLYING_SPRITE_POSITION= new Vector2(333, 1);
     public  Vector2 STANDING_SPRITE_POSITION = new Vector2(491, 5);
-    private float durrationOfAnimation = 0.1f;
+    private float durationOfAnimation = 0.1f;
 
     public enum State {DEATH, FLYING, STANDING, RUNNING};
     public State currentState;
@@ -53,8 +53,8 @@ public class Player extends Sprite {
         stateTimer = 0;
         runningRight = true;
 
-        playerRun = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.RUNNING));
-        playerFly = new Animation <TextureRegion>(durrationOfAnimation, getFramesForPlayerActionAnimation(State.FLYING));
+        playerRun = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(State.RUNNING));
+        playerFly = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(State.FLYING));
         this.world = screen.getWorld();
         definePlayer();
         Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(State.STANDING, 0);
@@ -160,20 +160,20 @@ public class Player extends Sprite {
     }
 
     public void definePlayer () {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / map.getPpm() , 32 / map.getPpm());
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(32 / map.getPpm() , 32 / map.getPpm());
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bodyDef);
 
-        FixtureDef fdef = new FixtureDef();
+        FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / map.getPpm());
-        fdef.filter.categoryBits = TileObject.PLAYER_BIT;
-        fdef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT | TileObject.SPIKE_BIT;
+        fixtureDef.filter.categoryBits = TileObject.PLAYER_BIT;
+        fixtureDef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT | TileObject.SPIKE_BIT;
 
 
-        fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(BODY_USER_DATA);
+        fixtureDef.shape = shape;
+        b2body.createFixture(fixtureDef).setUserData(BODY_USER_DATA);
 
 
     }

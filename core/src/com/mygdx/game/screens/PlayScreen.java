@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -102,12 +103,14 @@ public class PlayScreen implements Screen {
         renderer.render();
         b2dr.render(world, gameCam.combined);
 
-        game.batch.setProjectionMatrix(gameCam.combined);
-        game.batch.begin();
-        player.draw(game.batch);
-        game.batch.end();
+        Batch gameBatch = game.getBatch();
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        gameBatch.setProjectionMatrix(gameCam.combined);
+        gameBatch.begin();
+        player.draw(gameBatch);
+        gameBatch.end();
+
+        gameBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
     }

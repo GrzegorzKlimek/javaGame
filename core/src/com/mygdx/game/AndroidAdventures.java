@@ -6,10 +6,8 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class AndroidAdventures extends Game {
 
-	public  int score = 0;
-
-
-	public SpriteBatch batch;
+	private   int score = 0;
+	private SpriteBatch batch;
 
 	@Override
 	public void create () {
@@ -29,15 +27,19 @@ public class AndroidAdventures extends Game {
 
 	}
 	public SpriteBatch getBatch() {
+
 		return batch;
 	}
 	public void addScore(int score) {
+
 		this.score += score;
 	}
 	public int getScore () {
+
 		return score;
 	}
 	public void resetScore () {
+
 		score = 0;
 	}
 }

@@ -18,7 +18,7 @@ public class B2WorldCreator {
 
 
             TileObjectFabric tileObjectFabric = new TileObjectFabric();
-            int [] tileObjLayersIndexes = TileObjectFabric.objectLayers;
+            int [] tileObjLayersIndexes = screen.getMap().getInteractiveLayersIndexes();
 
             for (int i = 0; i < tileObjLayersIndexes.length; i++) {
                 int tileLayerObjIndex = tileObjLayersIndexes[i];
@@ -29,6 +29,5 @@ public class B2WorldCreator {
                 }
 
             }
-
     }
 }
