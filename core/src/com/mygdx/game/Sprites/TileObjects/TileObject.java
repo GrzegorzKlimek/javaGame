@@ -18,13 +18,6 @@ import com.mygdx.game.screens.PlayScreen;
  */
 
 public abstract class TileObject {
-    public static final short PLATFORM_BIT = 1;
-    public static final short PLAYER_BIT = 2;
-    public static final short DIAMOND_BIT = 4;
-    public static final short DESTROYED_BIT = 16;
-    public static final short SPIKE_BIT = 32;
-    public static final short OBJECT_BIT = 64;
-    public static final short ENEMY_BIT = 128;
 
 
 

@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites.TileObjects.particular;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.screens.PlayScreen;
 
@@ -16,7 +17,7 @@ public class Platform extends TileObject {
 
         super(screen, bounds);
         fixture.setUserData(this);
-        setCategoryFilter(PLATFORM_BIT);
+        setCategoryFilter(SpriteUtilities.PLATFORM_BIT);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.Tools.Map;
 import com.mygdx.game.screens.PlayScreen;
@@ -168,8 +169,8 @@ public class Player extends Sprite {
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(SHAPE_RADIUS_OF_BODY / map.getPpm());
-        fixtureDef.filter.categoryBits = TileObject.PLAYER_BIT;
-        fixtureDef.filter.maskBits = TileObject.PLATFORM_BIT | TileObject.DIAMOND_BIT | TileObject.SPIKE_BIT;
+        fixtureDef.filter.categoryBits = SpriteUtilities.PLAYER_BIT;
+        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT;
 
 
         fixtureDef.shape = shape;

@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites.agents.enemies.particular;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.Sprites.agents.enemies.Enemy;
 import com.mygdx.game.Tools.Map;
@@ -30,12 +31,12 @@ public class Evil extends Enemy {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(12 /  map.getPpm());
-        fdef.filter.categoryBits = TileObject.ENEMY_BIT;
-        fdef.filter.maskBits = TileObject.PLATFORM_BIT |
+        fdef.filter.categoryBits = SpriteUtilities.ENEMY_BIT;
+        fdef.filter.maskBits = SpriteUtilities.PLATFORM_BIT |
 
-                TileObject.DIAMOND_BIT |
-                TileObject.ENEMY_BIT |
-                TileObject.OBJECT_BIT;
+                SpriteUtilities.DIAMOND_BIT |
+                SpriteUtilities.ENEMY_BIT |
+                SpriteUtilities.OBJECT_BIT;
 
 
         fdef.shape = shape;
