@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Scenes.Hud;
+import com.mygdx.game.Sprites.agents.SpriteAgents;
+import com.mygdx.game.Sprites.agents.enemies.DarkKnight;
 import com.mygdx.game.Tools.B2WorldCreator;
 
 import com.mygdx.game.Sprites.agents.protagonist.Player;
@@ -39,7 +41,8 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
-    private Player player;
+    private SpriteAgents player;
+    private SpriteAgents enemy;
 
     public PlayScreen(AndroidAdventures game) {
         atlas = new TextureAtlas(pathToPacks);
@@ -55,7 +58,8 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
        b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
-        player = new Player(this);
+        player = new Player(this, new Vector2(32,32));
+        enemy = new DarkKnight(this, new Vector2(50,50));
 
         world.setContactListener(new WorldContactListener());
 
@@ -82,6 +86,7 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);
+        enemy.update(dt);
         hud.update(dt);
 
         gameCam.position.x = player.b2body.getPosition().x;
@@ -108,6 +113,7 @@ public class PlayScreen implements Screen {
         gameBatch.setProjectionMatrix(gameCam.combined);
         gameBatch.begin();
         player.draw(gameBatch);
+        enemy.draw(gameBatch);
         gameBatch.end();
 
         gameBatch.setProjectionMatrix(hud.stage.getCamera().combined);

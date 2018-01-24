@@ -22,8 +22,8 @@ public abstract class SpriteAgents extends Sprite {
     public enum STATE {DEATH, FLYING, STANDING, RUNNING};
     protected STATE currentState;
     protected STATE previousState;
-    protected TextureRegion playerStand;
-    protected Animation<TextureRegion> playerRun;
+    protected TextureRegion agentStand;
+    protected Animation<TextureRegion> agentRun;
 
     public   Vector2 startPosition ;
     public   Vector2 deathTexturePos ;
@@ -37,6 +37,8 @@ public abstract class SpriteAgents extends Sprite {
     protected World world;
     protected  Map map;
     public Body b2body;
+    protected float stateTimer;
+    protected boolean runningRight;
 
     public  SpriteAgents (PlayScreen screen, Vector2 startPosition, String firstRegion, int shapeRadius, int textureWith, int textureHeight) {
         super(screen.getAtlas().findRegion(firstRegion));
@@ -51,22 +53,8 @@ public abstract class SpriteAgents extends Sprite {
     protected abstract int getActionFramesNumber(STATE actionOrStateOfPlayer);
     protected abstract TextureRegion getFrame (float deltaTime);
 
-    protected void defineAgent(Vector2 startPosition , short agentBit, String userData) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(startPosition.x / map.getPpm() , startPosition.y / map.getPpm());
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bodyDef);
+    protected abstract void defineAgent(Vector2 startPosition , short agentBit, String userData);
 
-        FixtureDef fixtureDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(shapeRadiusOfBody / map.getPpm());
-        fixtureDef.filter.categoryBits = agentBit;
-        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT;
-
-        fixtureDef.shape = shape;
-        b2body.createFixture(fixtureDef).setUserData(userData);
-
-    }
     protected Vector2 getPositionOfAgentTexture(STATE state, int index) {
         float x;
         float y;
