@@ -1,6 +1,5 @@
 package com.mygdx.game.Sprites.TileObjects;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Tools.Map;
 import com.mygdx.game.screens.PlayScreen;
 
@@ -31,12 +30,14 @@ public abstract class TileObject {
 
     protected World world;
     protected Map map;
+    protected AndroidAdventures game;
     protected Rectangle bounds;
     protected Body body;
     protected Fixture fixture;
 
 
     public  TileObject(PlayScreen screen, Rectangle bounds){
+        this.game = screen.getGame();
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds=bounds;

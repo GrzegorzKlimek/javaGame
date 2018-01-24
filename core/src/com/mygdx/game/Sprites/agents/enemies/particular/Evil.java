@@ -3,7 +3,6 @@ package com.mygdx.game.Sprites.agents.enemies.particular;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.Sprites.agents.enemies.Enemy;
 import com.mygdx.game.Tools.Map;

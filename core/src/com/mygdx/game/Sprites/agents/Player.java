@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.JavaSimpleGame;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
 import com.mygdx.game.Tools.Map;
 import com.mygdx.game.screens.PlayScreen;

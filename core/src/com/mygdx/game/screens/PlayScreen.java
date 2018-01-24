@@ -6,15 +6,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Tools.B2WorldCreator;
 
@@ -31,7 +29,7 @@ public class PlayScreen implements Screen {
 
     private String pathToTileMap = "level1.tmx";
     private String pathToPacks = "packs/android_mascot.pack";
-    private JavaSimpleGame game;
+    private AndroidAdventures game;
     private TextureAtlas atlas;
     private OrthographicCamera gameCam;
     private Viewport gamePort;
@@ -42,13 +40,13 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
     private Player player;
 
-    public PlayScreen(JavaSimpleGame game) {
+    public PlayScreen(AndroidAdventures game) {
         atlas = new TextureAtlas(pathToPacks);
         this.game = game;
         gameCam = new OrthographicCamera();
         map = new Map();
         gamePort = new FitViewport(map.getWidth() / map.getPpm(),  map.getHeight()/ map.getPpm(), gameCam);
-        hud = new Hud(game.batch, map);
+        hud = new Hud(game, map);
         renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/map.getPpm());
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight() / 2, 0);
 
@@ -122,6 +120,9 @@ public class PlayScreen implements Screen {
 
     public Map getMap(){
         return map;
+    }
+    public AndroidAdventures getGame() {
+        return game;
     }
 
     public World getWorld(){

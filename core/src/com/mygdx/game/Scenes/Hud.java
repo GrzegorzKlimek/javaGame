@@ -3,14 +3,13 @@ package com.mygdx.game.Scenes;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.JavaSimpleGame;
+import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Tools.Map;
 
 
@@ -23,6 +22,7 @@ public class Hud implements Disposable {
     private Viewport viewport;
     private Integer worldTimer;
     private float timeCount;
+    private AndroidAdventures game;
     private int score;
 
     private Label coundDownLabel;
@@ -32,13 +32,14 @@ public class Hud implements Disposable {
     private Label worldLebel;
     private Label gamerLebel;
 
-    public  Hud (SpriteBatch sb, Map map) {
+    public  Hud (AndroidAdventures game, Map map) {
         worldTimer = 100;
         timeCount = 0;
-        score = JavaSimpleGame.score;
+        this.game = game;
+        score = game.getScore();
 
         viewport = new FitViewport(map.getHeight(), map.getWidth(), new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+        stage = new Stage(viewport, game.getBatch());
 
         Table table = new Table();
         table.top();
@@ -74,7 +75,7 @@ public class Hud implements Disposable {
 
 
     public void updateScore(){
-        score = JavaSimpleGame.score;
+        score = game.getScore();
         scoreLebel.setText(String.format("%06d",score));
     }
 

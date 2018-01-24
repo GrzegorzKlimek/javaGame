@@ -17,25 +17,31 @@ public class Map extends TiledMap {
     private   int tileHeight = 16;
 
     public Map () {
+
         tileMap = new TmxMapLoader().load(pathToTileMap);
     }
 
     public int getWidth() {
+
         return width;
     }
     public int getHeight() {
+
         return height;
     }
 
     public float getPpm() {
+
         return ppm;
     }
 
     public int getTileWith() {
+
         return tileWith;
     }
 
     public int getTileHeight() {
+
         return tileHeight;
     }
 

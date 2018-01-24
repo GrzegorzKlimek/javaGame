@@ -4,11 +4,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.screens.PlayScreen;
 
-public class JavaSimpleGame extends Game {
+public class AndroidAdventures extends Game {
 
-	public static int score = 0;
+	public  int score = 0;
+
+
 	public SpriteBatch batch;
-	
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -20,10 +22,22 @@ public class JavaSimpleGame extends Game {
 	public void render () {
 		super.render();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();
 
+	}
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+	public void addScore(int score) {
+		this.score += score;
+	}
+	public int getScore () {
+		return score;
+	}
+	public void resetScore () {
+		score = 0;
 	}
 }
