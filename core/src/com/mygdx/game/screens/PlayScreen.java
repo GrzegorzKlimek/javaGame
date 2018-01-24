@@ -29,7 +29,7 @@ import com.mygdx.game.Tools.WorldContactListener;
 public class PlayScreen implements Screen {
 
     private String pathToFirstTileMap = "level1.tmx";
-    private String pathToPacks = "packs/android_mascot.pack";
+    private String pathToPacks = "packs/android_and_enemies.pack";
     private AndroidAdventures game;
     private TextureAtlas atlas;
     private OrthographicCamera gameCam;

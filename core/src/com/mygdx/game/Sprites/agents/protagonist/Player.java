@@ -3,7 +3,6 @@ package com.mygdx.game.Sprites.agents.protagonist;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.agents.SpriteAgents;
 import com.mygdx.game.screens.PlayScreen;
@@ -21,17 +20,17 @@ public class Player extends SpriteAgents {
     private float durationOfAnimation = 0.1f;
 
     private  static  Vector2 START_POSITION = new Vector2(32,32);
-    private static  Vector2 DEATH_TEXTURE_POSITION= new Vector2(1, 6);
-    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(169, 8);
-    private static Vector2 FLYING_TEXTURE_POSITION= new Vector2(333, 1);
-    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(491, 5);
+    private static  Vector2 DEATH_TEXTURE_POSITION= new Vector2(183, 6);
+    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(351, 8);
+    private static Vector2 FLYING_TEXTURE_POSITION= new Vector2(515, 1);
+    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(673, 10);
 
     private Animation <TextureRegion>playerFly;
     private float stateTimer;
     private boolean runningRight;
 
     public Player ( PlayScreen screen) {
-        super(screen, START_POSITION, "flying", 10, 55,78);
+        super(screen, START_POSITION, "android_standing", 10, 55,78);
         currentState = STATE.STANDING;
         previousState = STATE.STANDING;
         stateTimer = 0;
@@ -39,7 +38,7 @@ public class Player extends SpriteAgents {
         defineAgent(startPosition, SpriteUtilities.PLAYER_BIT, BODY_USER_DATA);
         playerRun = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.RUNNING));
         playerFly = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.FLYING));
-        Vector2 standingDroitTexturePos = getPositionOfPlayerTexture(STATE.STANDING, 0);
+        Vector2 standingDroitTexturePos = getPositionOfAgentTexture(STATE.STANDING, 0);
         playerStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , textureWith, textureHeight);
         setBounds(0,0, 17/map.getPpm(), 25/map.getPpm());
         setRegion(playerStand);

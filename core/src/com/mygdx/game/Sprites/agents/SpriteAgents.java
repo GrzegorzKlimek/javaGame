@@ -67,7 +67,7 @@ public abstract class SpriteAgents extends Sprite {
         b2body.createFixture(fixtureDef).setUserData(userData);
 
     }
-    protected Vector2 getPositionOfPlayerTexture (STATE state, int index) {
+    protected Vector2 getPositionOfAgentTexture(STATE state, int index) {
         float x;
         float y;
         switch (state) {
@@ -88,7 +88,7 @@ public abstract class SpriteAgents extends Sprite {
                 y = standingTexturePos.y;
                 break;
             default:
-                throw new RuntimeException("illegal state of player in Player.getPositionOfPlayerTexture()");
+                throw new RuntimeException("illegal state of player in Player.getPositionOfAgentTexture()");
         }
         return  new Vector2( x + index * textureWith, y );
     }
@@ -119,7 +119,6 @@ public abstract class SpriteAgents extends Sprite {
     }
 
     protected Array<TextureRegion> getFramesForPlayerActionAnimation (STATE actionOrStateOfPlayer) {
-        Vector2 playerTexturePos ;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         int iterations = getActionFramesNumber(actionOrStateOfPlayer);
         for (int i = 0; i < iterations; i++) {
