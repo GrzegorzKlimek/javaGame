@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.agents.SpriteAgents;
 import com.mygdx.game.screens.PlayScreen;
@@ -22,15 +23,15 @@ public class Player extends SpriteAgents {
     public static String BODY_USER_DATA = "PlayerBody";
     private float durationOfAnimation = 0.1f;
 
-    private static  Vector2 DEATH_TEXTURE_POSITION= new Vector2(183, 6);
-    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(351, 8);
-    private static Vector2 FLYING_TEXTURE_POSITION= new Vector2(515, 1);
-    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(673, 10);
+    private static  Vector2 DEATH_TEXTURE_POSITION= new Vector2(1, 144);
+    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(169, 146);
+    private static Vector2 FLYING_TEXTURE_POSITION= new Vector2(1, 68);
+    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(1, 1);
 
     private Animation <TextureRegion>playerFly;
 
     public Player ( PlayScreen screen, Vector2 startPosition) {
-        super(screen, startPosition, "android_standing", 10, 55,78);
+        super(screen, startPosition, "android_standing", 8, 55,78);
         currentState = STATE.STANDING;
         previousState = STATE.STANDING;
         stateTimer = 0;
@@ -100,8 +101,9 @@ public class Player extends SpriteAgents {
         b2body = world.createBody(bodyDef);
 
         FixtureDef fixtureDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(shapeRadiusOfBody / map.getPpm());
+        PolygonShape shape = new PolygonShape();
+       // shape.setRadius(shapeRadiusOfBody / map.getPpm());
+        shape.setAsBox(4.0f/map.getPpm(),5.0f/map.getPpm());
         fixtureDef.filter.categoryBits = agentBit;
         fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.ENEMY_BIT ;
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.agents.SpriteAgents;
 import com.mygdx.game.screens.PlayScreen;
@@ -20,14 +21,14 @@ public class DarkKnight extends SpriteAgents {
 
     private  static  Vector2 START_POSITION ;
     private static  Vector2 DEATH_TEXTURE_POSITION= null;
-    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(1, 9);
+    private static Vector2 RUNNING_TEXTURE_POSITION= new Vector2(1, 215);
     private static Vector2 FLYING_TEXTURE_POSITION= null;
-    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(831, 7);
+    private static  Vector2 STANDING_TEXTURE_POSITION = new Vector2(723, 207);
     private float stateTime;
     private static int SHAPE_RADIOS = 10;
 
     public DarkKnight(PlayScreen screen, Vector2 startPosition) {
-        super(screen, startPosition, "dark_knight_standing", 10, 60, 68);
+        super(screen, startPosition, "dark_knight_standing", 22, 240, 272);
         currentState = STATE.STANDING;
         previousState = STATE.STANDING;
         stateTimer = 0;
@@ -36,7 +37,7 @@ public class DarkKnight extends SpriteAgents {
         agentRun = new Animation<TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.RUNNING));
         Vector2 standingDroitTexturePos = getPositionOfAgentTexture(STATE.STANDING, 0);
         agentStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , textureWith, textureHeight);
-        setBounds(0,0, 17/map.getPpm(), 25/map.getPpm());
+        setBounds(0,0, 40/map.getPpm(), 68/map.getPpm());
         setRegion(agentStand);
     }
 
@@ -80,8 +81,9 @@ public class DarkKnight extends SpriteAgents {
         b2body = world.createBody(bodyDef);
 
         FixtureDef fixtureDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(shapeRadiusOfBody / map.getPpm());
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(8.0f/ map.getPpm(), 25.0f/ map.getPpm());
+        //shape.setRadius(shapeRadiusOfBody / map.getPpm());
         fixtureDef.filter.categoryBits = agentBit;
         fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.PLAYER_BIT ;
 

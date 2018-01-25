@@ -56,10 +56,10 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0,-10 ), true);
         b2dr = new Box2DDebugRenderer();
-       b2dr.setDrawBodies(false);
+        //b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
         player = new Player(this, new Vector2(32,32));
-        enemy = new DarkKnight(this, new Vector2(50,50));
+        enemy = new DarkKnight(this, new Vector2(250,50));
 
         world.setContactListener(new WorldContactListener());
 
