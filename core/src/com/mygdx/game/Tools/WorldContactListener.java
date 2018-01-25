@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
-import com.mygdx.game.Sprites.agents.Player;
+import com.mygdx.game.Sprites.agents.protagonist.Player;
 
 /**
  * Created by Iksob on 2018-01-12.

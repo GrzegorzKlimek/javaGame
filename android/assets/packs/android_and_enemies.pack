@@ -1,33 +1,47 @@
 
-android_mascot.png
+android_and_enemies.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-death
+dark_knight_walking
   rotate: false
-  xy: 1, 6
+  xy: 1, 9
+  size: 180, 66
+  orig: 180, 66
+  offset: 0, 0
+  index: -1
+android_death
+  rotate: false
+  xy: 183, 6
   size: 166, 69
   orig: 166, 69
   offset: 0, 0
   index: -1
-running
+android_running
   rotate: false
-  xy: 169, 8
+  xy: 351, 8
   size: 162, 67
   orig: 162, 67
   offset: 0, 0
   index: -1
-flying
+android_flying
   rotate: false
-  xy: 333, 1
+  xy: 515, 1
   size: 156, 74
   orig: 156, 74
   offset: 0, 0
   index: -1
-standing
+android_standing
   rotate: false
-  xy: 491, 10
+  xy: 673, 10
   size: 156, 65
   orig: 156, 65
+  offset: 0, 0
+  index: -1
+dark_knight_standing
+  rotate: false
+  xy: 831, 7
+  size: 60, 68
+  orig: 60, 68
   offset: 0, 0
   index: -1
