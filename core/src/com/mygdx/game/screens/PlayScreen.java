@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Scenes.Hud;
-import com.mygdx.game.Sprites.agents.SpriteAgents;
+import com.mygdx.game.Sprites.agents.SpriteAgent;
 import com.mygdx.game.Sprites.agents.enemies.DarkKnight;
 import com.mygdx.game.Tools.B2WorldCreator;
 
@@ -41,8 +41,8 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
-    private SpriteAgents player;
-    private SpriteAgents enemy;
+    private SpriteAgent player;
+    private SpriteAgent enemy;
 
     public PlayScreen(AndroidAdventures game) {
         atlas = new TextureAtlas(pathToPacks);
