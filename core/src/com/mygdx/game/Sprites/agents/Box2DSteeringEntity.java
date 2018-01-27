@@ -1,29 +1,40 @@
-package com.mygdx.game.Sprites.agents.enemies;
+package com.mygdx.game.Sprites.agents;
 
-import com.badlogic.gdx.ai.utils.Location;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Sprites.agents.SpriteAgent;
 import com.badlogic.gdx.ai.steer.Steerable;
-import com.mygdx.game.screens.PlayScreen;
+import com.badlogic.gdx.ai.utils.Location;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * Created by grzegorz on 27.01.18.
  */
 
-public abstract class Enemy extends SpriteAgent implements Steerable {
+public class Box2DSteeringEntity implements Steerable <Vector2> {
 
-    public Enemy(PlayScreen screen, Vector2 startPosition, String firstRegion, Vector2 sizeOfSprite, Vector2 sizeOfB2DBody, Vector2 boundsOfTextureRegion) {
-        super(screen, startPosition, firstRegion, sizeOfSprite, sizeOfB2DBody, boundsOfTextureRegion);
+    private Body body;
+    private boolean tagged;
+    private float boundingRadious;
+    private float maxLinearSpeed, maxLineraAcceleration;
+    private float maxAngularSpeed, maxAngularAcceleration;
+    private float orientation;
+
+    public  Box2DSteeringEntity (Body body, float boundingRadious) {
+        this.body = body;
+        this.boundingRadious = boundingRadious;
+
     }
+
+    public Body getBody() {
+        return body;
+    }
+
 
     /**
      * Returns the vector indicating the linear velocity of this Steerable.
      */
     @Override
-    public Vector getLinearVelocity() {
-        return null;
+    public Vector2 getLinearVelocity() {
+        return body.getLinearVelocity();
     }
 
     /**
@@ -31,7 +42,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getAngularVelocity() {
-        return 0;
+        return body.getAngularVelocity();
     }
 
     /**
@@ -39,7 +50,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getBoundingRadius() {
-        return 0;
+        return boundingRadious;
     }
 
     /**
@@ -47,7 +58,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public boolean isTagged() {
-        return false;
+        return tagged;
     }
 
     /**
@@ -57,7 +68,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public void setTagged(boolean tagged) {
-
+        this.tagged = tagged;
     }
 
     /**
@@ -85,7 +96,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getMaxLinearSpeed() {
-        return 0;
+        return maxLinearSpeed;
     }
 
     /**
@@ -95,7 +106,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public void setMaxLinearSpeed(float maxLinearSpeed) {
-
+        this.maxLinearSpeed = maxLinearSpeed;
     }
 
     /**
@@ -103,7 +114,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getMaxLinearAcceleration() {
-        return 0;
+        return maxLineraAcceleration;
     }
 
     /**
@@ -113,7 +124,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public void setMaxLinearAcceleration(float maxLinearAcceleration) {
-
+        this.maxLineraAcceleration = maxLinearAcceleration;
     }
 
     /**
@@ -121,7 +132,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getMaxAngularSpeed() {
-        return 0;
+        return maxAngularSpeed;
     }
 
     /**
@@ -131,7 +142,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public void setMaxAngularSpeed(float maxAngularSpeed) {
-
+        this.maxAngularSpeed = maxAngularSpeed;
     }
 
     /**
@@ -139,7 +150,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getMaxAngularAcceleration() {
-        return 0;
+        return maxAngularAcceleration;
     }
 
     /**
@@ -149,15 +160,15 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-
+        this.maxAngularAcceleration = maxAngularAcceleration;
     }
 
     /**
      * Returns the vector indicating the position of this location.
      */
     @Override
-    public Vector getPosition() {
-        return null;
+    public Vector2 getPosition() {
+        return body.getPosition();
     }
 
     /**
@@ -166,7 +177,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public float getOrientation() {
-        return 0;
+        return body.getAngle();
     }
 
     /**
@@ -176,7 +187,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      */
     @Override
     public void setOrientation(float orientation) {
-
+        this.orientation = orientation;
     }
 
     /**
@@ -185,7 +196,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      * @param vector the vector
      */
     @Override
-    public float vectorToAngle(Vector vector) {
+    public float vectorToAngle(Vector2 vector) {
         return 0;
     }
 
@@ -197,7 +208,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      * @return the output vector for chaining.
      */
     @Override
-    public Vector angleToVector(Vector outVector, float angle) {
+    public Vector2 angleToVector(Vector2 outVector, float angle) {
         return null;
     }
 
@@ -210,9 +221,7 @@ public abstract class Enemy extends SpriteAgent implements Steerable {
      * @return the newly created location.
      */
     @Override
-    public Location newLocation() {
+    public Location<Vector2> newLocation() {
         return null;
     }
-
-
 }

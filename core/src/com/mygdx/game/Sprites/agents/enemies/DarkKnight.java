@@ -1,4 +1,4 @@
-package com.mygdx.game.Sprites.agents.enemies.particular;
+package com.mygdx.game.Sprites.agents.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,7 +13,7 @@ import com.mygdx.game.screens.PlayScreen;
  * Created by Iksob on 2018-01-12.
  */
 
-public class DarkKnight extends Enemy {
+public class DarkKnight extends SpriteAgent {
     public static String BODY_USER_DATA = "EnemyBody";
     private static String NAME_OF_FIRST_REGION = "dark_knight_standing";
     private float durationOfAnimation = 0.1f;

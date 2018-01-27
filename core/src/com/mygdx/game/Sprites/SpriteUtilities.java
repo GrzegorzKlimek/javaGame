@@ -1,6 +1,7 @@
 package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
 import com.mygdx.game.Sprites.agents.protagonist.Player;
 
@@ -44,6 +45,16 @@ public class SpriteUtilities {
         }
 
         return new TextureRegion(agent.getTexture(), xCoordinate, yCoordinate, agent.textureRegionBoundsWith, agent.textureRegionBoundsHeight);
+    }
+
+    public static  float vectorToAngle (Vector2 vector) {
+        return  (float) Math.atan2(-vector.x, vector.y);
+    }
+
+    public static Vector2 angleToVector(Vector2 outVector, float angle) {
+        outVector.x = -(float)Math.sin(angle);
+        outVector.y = -(float)Math.cos(angle);
+        return outVector;
     }
 
 

@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
-import com.mygdx.game.Sprites.agents.enemies.particular.DarkKnight;
+import com.mygdx.game.Sprites.agents.enemies.DarkKnight;
 import com.mygdx.game.Tools.B2WorldCreator;
 
 import com.mygdx.game.Sprites.agents.protagonist.Player;
