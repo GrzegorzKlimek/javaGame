@@ -1,7 +1,6 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
-import com.mygdx.game.Sprites.agents.enemies.DarkKnight;
+import com.mygdx.game.Sprites.agents.enemies.particular.DarkKnight;
 import com.mygdx.game.Tools.B2WorldCreator;
 
 import com.mygdx.game.Sprites.agents.protagonist.Player;
@@ -70,19 +69,8 @@ public class PlayScreen implements Screen {
     }
 
 
-    public  void handleInput(float dt) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            player.b2body.applyLinearImpulse( new Vector2(0, 4f) , player.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
-            player.b2body.applyLinearImpulse( new Vector2(0.1f, 0) , player.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
-            player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-        }
-    }
     public void update(float dt) {
-        handleInput(dt);
+
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);

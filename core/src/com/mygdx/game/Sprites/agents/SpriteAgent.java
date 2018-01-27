@@ -1,5 +1,7 @@
 package com.mygdx.game.Sprites.agents;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -95,7 +97,7 @@ public abstract class SpriteAgent extends Sprite {
                 y = standingTexturePos.y;
                 break;
             default:
-                throw new RuntimeException("illegal state of player in Player.getPositionOfAgentTexture()");
+                throw new RuntimeException("illegal state of agent in SpriteAgent.getPositionOfAgentTexture()");
         }
         return  new Vector2( x + index * textureRegionBoundsWith, y );
     }
@@ -119,6 +121,7 @@ public abstract class SpriteAgent extends Sprite {
         }
 
     }
+
 
     public void update(float dt){
         setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
