@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -42,6 +43,7 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
     private SpriteAgent player;
     private SpriteAgent enemy;
+    private Arrive<Vector2> arrive;
 
     public PlayScreen(AndroidAdventures game) {
         atlas = new TextureAtlas(pathToPacks);
@@ -62,6 +64,12 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListener());
 
+        arrive = new Arrive<Vector2>(enemy.getSteerableBody(), player.getSteerableBody())
+                .setTimeToTarget(0.01f)
+                .setArrivalTolerance(2f)
+                .setDecelerationRadius(3);
+
+
     }
 
     public TextureAtlas getAtlas(){
@@ -75,6 +83,7 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);
+        enemy.setBehaviour(arrive);
         enemy.update(dt);
         hud.update(dt);
 

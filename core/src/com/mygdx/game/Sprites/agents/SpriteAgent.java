@@ -1,5 +1,6 @@
 package com.mygdx.game.Sprites.agents;
 
+import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -63,6 +64,10 @@ public abstract class SpriteAgent extends Sprite {
 
     public Body getBody () {
         return steerableB2body.getBody();
+    }
+
+    public B2DSteeringEntity getSteerableBody () {
+        return steerableB2body;
     }
 
     protected  void defineBody() {
@@ -143,6 +148,10 @@ public abstract class SpriteAgent extends Sprite {
             frames.add(SpriteUtilities.loadTexture(this, actionOrStateOfPlayer, i));
         }
         return frames;
+    }
+
+    public void setBehaviour(SteeringBehavior<Vector2> steeringBehavior) {
+        steerableB2body.setBehaviour(steeringBehavior);
     }
 
 

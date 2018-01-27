@@ -7,7 +7,6 @@ import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 /**
  * Created by grzegorz on 27.01.18.
@@ -52,6 +51,7 @@ public class B2DSteeringEntity implements Steerable <Vector2> {
     public void update (float delta) {
         if (behavior != null) {
             behavior.calculateSteering(steerOutput);
+            applySteering(delta);
         }
     }
 
