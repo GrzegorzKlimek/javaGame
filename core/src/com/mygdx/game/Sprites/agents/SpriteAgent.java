@@ -1,7 +1,5 @@
 package com.mygdx.game.Sprites.agents;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.AndroidAdventures;
+import com.mygdx.game.Sprites.B2DSteeringEntity;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Tools.Map;
 import com.mygdx.game.screens.PlayScreen;
@@ -39,7 +39,7 @@ public abstract class SpriteAgent extends Sprite {
     protected  Vector2 sizeOfB2DBody;
     protected World world;
     protected  Map map;
-    public Body b2body;
+    public B2DSteeringEntity steerableB2body;
     protected float stateTimer;
     protected boolean runningRight;
 
@@ -52,7 +52,7 @@ public abstract class SpriteAgent extends Sprite {
         this.textureRegionBoundsWith = (int)boundsOfTextureRegion.x;
         this.textureRegionBoundsHeight =  (int) boundsOfTextureRegion.y;
         this.startPosition = startPosition;
-        setBounds(0,0, sizeOfSprite.x/map.getPpm(), sizeOfSprite.y/map.getPpm());
+        setBounds(0,0, sizeOfSprite.x/ AndroidAdventures.PPM, sizeOfSprite.y/AndroidAdventures.PPM);
 
 
     }
@@ -61,16 +61,22 @@ public abstract class SpriteAgent extends Sprite {
 
     protected abstract void defineAgent(Vector2 startPosition , short agentBit, String userData);
 
+    public Body getBody () {
+        return steerableB2body.getBody();
+    }
+
     protected  void defineBody() {
+        Body b2body;
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(startPosition.x / map.getPpm(), startPosition.y / map.getPpm());
+        bodyDef.position.set(startPosition.x / AndroidAdventures.PPM, startPosition.y / AndroidAdventures.PPM);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bodyDef);
+        steerableB2body = new B2DSteeringEntity(b2body);
     }
     protected FixtureDef getFixtureDef (short agentBit) {
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(sizeOfB2DBody.x/ map.getPpm(), sizeOfB2DBody.y / map.getPpm());
+        shape.setAsBox(sizeOfB2DBody.x/ AndroidAdventures.PPM, sizeOfB2DBody.y /AndroidAdventures.PPM);
         fixtureDef.filter.categoryBits = agentBit;
         fixtureDef.shape = shape;
         return fixtureDef;
@@ -112,9 +118,9 @@ public abstract class SpriteAgent extends Sprite {
     }
 
     protected STATE getState() {
-        if (b2body.getLinearVelocity().y != 0) {
+        if (steerableB2body.getLinearVelocity().y != 0) {
             return  STATE.FLYING;
-        } else if (b2body.getLinearVelocity().x != 0) {
+        } else if (steerableB2body.getLinearVelocity().x != 0) {
             return  STATE.RUNNING;
         } else {
             return  STATE.STANDING;
@@ -124,7 +130,8 @@ public abstract class SpriteAgent extends Sprite {
 
 
     public void update(float dt){
-        setPosition(b2body.getPosition().x - getWidth() /2 , b2body.getPosition().y - getHeight()/2);
+        steerableB2body.update(dt);
+        setPosition(steerableB2body.getPosition().x - getWidth() /2 , steerableB2body.getPosition().y - getHeight()/2);
         setRegion(getFrame(dt));
     }
 

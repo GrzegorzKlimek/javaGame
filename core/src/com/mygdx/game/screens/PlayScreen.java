@@ -38,7 +38,7 @@ public class PlayScreen implements Screen {
     private Hud hud;
     private Map map;
     private OrthogonalTiledMapRenderer renderer;
-    private World world;
+    private  World world;
     private Box2DDebugRenderer b2dr;
     private SpriteAgent player;
     private SpriteAgent enemy;
@@ -48,9 +48,9 @@ public class PlayScreen implements Screen {
         this.game = game;
         gameCam = new OrthographicCamera();
         map = new Map(pathToFirstTileMap);
-        gamePort = new FitViewport(map.getWidth() / map.getPpm(),  map.getHeight()/ map.getPpm(), gameCam);
+        gamePort = new FitViewport(map.getWidth() / AndroidAdventures.PPM,  map.getHeight()/ AndroidAdventures.PPM, gameCam);
         hud = new Hud(game, map);
-        renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/map.getPpm());
+        renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/AndroidAdventures.PPM);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0,-10 ), true);
@@ -65,6 +65,7 @@ public class PlayScreen implements Screen {
     }
 
     public TextureAtlas getAtlas(){
+
         return atlas;
     }
 
@@ -77,7 +78,7 @@ public class PlayScreen implements Screen {
         enemy.update(dt);
         hud.update(dt);
 
-        gameCam.position.x = player.b2body.getPosition().x;
+        gameCam.position.x = player.steerableB2body.getPosition().x;
         gameCam.update();
         renderer.setView(gameCam);
     }
@@ -109,6 +110,7 @@ public class PlayScreen implements Screen {
 
     }
 
+
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
@@ -116,15 +118,19 @@ public class PlayScreen implements Screen {
     }
 
     public Map getMap(){
+
         return map;
     }
     public AndroidAdventures getGame() {
+
         return game;
     }
 
-    public World getWorld(){
-        return world;
+    public  World getWorld() {
+            return world;
     }
+
+
     @Override
     public void pause() {
 

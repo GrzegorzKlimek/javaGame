@@ -6,6 +6,7 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class AndroidAdventures extends Game {
 
+	public static  float PPM = 100;
 	private   int score = 0;
 	private SpriteBatch batch;
 

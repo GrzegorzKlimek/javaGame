@@ -2,8 +2,15 @@ package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
 import com.mygdx.game.Sprites.agents.protagonist.Player;
+import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by grzegorz on 24.01.18.
@@ -18,6 +25,7 @@ public class SpriteUtilities {
     public static final short SPIKE_BIT = 32;
     public static final short OBJECT_BIT = 64;
     public static final short ENEMY_BIT = 128;
+    public static final short B2DSTEERINGENTITYBODY = 256;
 
     public static TextureRegion loadTexture (SpriteAgent agent, SpriteAgent.STATE state, int numberOfFrame) {
         int xCoordinate;

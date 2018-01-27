@@ -1,40 +1,81 @@
-package com.mygdx.game.Sprites.agents;
+package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.ai.steer.Steerable;
+import com.badlogic.gdx.ai.steer.SteeringAcceleration;
+import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.utils.Location;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 /**
  * Created by grzegorz on 27.01.18.
  */
 
-public class Box2DSteeringEntity implements Steerable <Vector2> {
-
-    private Body body;
-    private boolean tagged;
-    private float boundingRadious;
-    private float maxLinearSpeed, maxLineraAcceleration;
-    private float maxAngularSpeed, maxAngularAcceleration;
-    private float orientation;
-
-    public  Box2DSteeringEntity (Body body, float boundingRadious) {
-        this.body = body;
-        this.boundingRadious = boundingRadious;
-
-    }
-
-    public Body getBody() {
-        return body;
-    }
-
-
+public class B2DSteeringEntity implements Steerable <Vector2> {
     /**
      * Returns the vector indicating the linear velocity of this Steerable.
      */
+    private boolean taged;
+    private float maxLinearSpeed, maxLinearAcceleration;
+    private float maxAngularSpeed, maxAngularAcceleration;
+    private MyLocation location;
+    private float zeroLinearSpeedThreshold;
+    private SteeringBehavior<Vector2> behavior;
+    private SteeringAcceleration<Vector2> steerOutput;
+
+
+    public B2DSteeringEntity (Body body) {
+
+        location = new MyLocation(body);
+        this.maxLinearSpeed = 500;
+        this.maxLinearAcceleration = 5000;
+        this.maxAngularSpeed = 30;
+        this.maxAngularAcceleration = 5;
+        this.taged = false;
+        this.steerOutput = new SteeringAcceleration<Vector2>(new Vector2());
+        this.getBody().setUserData(this);
+    }
+
+    public Body getBody() {
+        return location.getBody();
+    }
+
+    public void setBehaviour(SteeringBehavior<Vector2> steeringBehavior) {
+        this.behavior = steeringBehavior;
+    }
+    public  SteeringBehavior<Vector2> getBehavior () {
+        return behavior;
+    }
+
+    public void update (float delta) {
+        if (behavior != null) {
+            behavior.calculateSteering(steerOutput);
+        }
+    }
+
+    private void applySteering (float delta) {
+        boolean anyAcceleration = false;
+        if (!steerOutput.linear.isZero()) {
+            Vector2 force = steerOutput.linear.scl(delta);
+            getBody().applyForceToCenter(force, true);
+            anyAcceleration = true;
+        }
+
+        if (anyAcceleration) {
+            Vector2 velocity = getBody().getLinearVelocity();
+            float currentSpeedSquere = velocity.len2();
+            if (currentSpeedSquere > maxLinearSpeed * maxLinearSpeed) {
+                getBody().setLinearVelocity(velocity.scl(maxLinearSpeed/ (float) Math.sqrt(currentSpeedSquere)));
+            }
+        }
+    }
+
     @Override
     public Vector2 getLinearVelocity() {
-        return body.getLinearVelocity();
+
+        return location.getBody().getLinearVelocity();
     }
 
     /**
@@ -42,7 +83,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getAngularVelocity() {
-        return body.getAngularVelocity();
+
+        return location.getBody().getAngularVelocity();
     }
 
     /**
@@ -50,7 +92,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getBoundingRadius() {
-        return boundingRadious;
+        return 4;
     }
 
     /**
@@ -58,7 +100,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public boolean isTagged() {
-        return tagged;
+        return taged;
     }
 
     /**
@@ -68,7 +110,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public void setTagged(boolean tagged) {
-        this.tagged = tagged;
+        this.taged = tagged;
     }
 
     /**
@@ -77,7 +119,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getZeroLinearSpeedThreshold() {
-        return 0;
+
+        return zeroLinearSpeedThreshold;
     }
 
     /**
@@ -88,7 +131,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public void setZeroLinearSpeedThreshold(float value) {
-
+        this.zeroLinearSpeedThreshold = value;
     }
 
     /**
@@ -114,7 +157,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getMaxLinearAcceleration() {
-        return maxLineraAcceleration;
+
+        return maxLinearAcceleration;
     }
 
     /**
@@ -124,7 +168,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public void setMaxLinearAcceleration(float maxLinearAcceleration) {
-        this.maxLineraAcceleration = maxLinearAcceleration;
+        this.maxLinearAcceleration = maxLinearAcceleration;
     }
 
     /**
@@ -132,6 +176,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getMaxAngularSpeed() {
+
         return maxAngularSpeed;
     }
 
@@ -150,6 +195,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getMaxAngularAcceleration() {
+
         return maxAngularAcceleration;
     }
 
@@ -168,7 +214,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public Vector2 getPosition() {
-        return body.getPosition();
+
+        return location.getPosition();
     }
 
     /**
@@ -177,7 +224,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float getOrientation() {
-        return body.getAngle();
+
+        return location.getOrientation();
     }
 
     /**
@@ -187,7 +235,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public void setOrientation(float orientation) {
-        this.orientation = orientation;
+        location.setOrientation(orientation);
     }
 
     /**
@@ -197,7 +245,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public float vectorToAngle(Vector2 vector) {
-        return 0;
+
+        return location.vectorToAngle(vector);
     }
 
     /**
@@ -209,7 +258,8 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      */
     @Override
     public Vector2 angleToVector(Vector2 outVector, float angle) {
-        return null;
+
+        return location.angleToVector(outVector, angle);
     }
 
     /**
@@ -221,7 +271,7 @@ public class Box2DSteeringEntity implements Steerable <Vector2> {
      * @return the newly created location.
      */
     @Override
-    public Location<Vector2> newLocation() {
-        return null;
+    public Location newLocation() {
+        return location.newLocation();
     }
 }
