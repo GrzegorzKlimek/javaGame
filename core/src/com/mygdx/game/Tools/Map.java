@@ -12,7 +12,6 @@ public class Map extends TiledMap {
     private TiledMap tileMap;
     private   int width = 400;
     private   int height = 250;
-    private   float ppm = 100;
     private   int tileWith = 16;
     private   int tileHeight = 16;
     public static final int BACKGROUND_LAYER_INDEX = 0;
@@ -38,10 +37,6 @@ public class Map extends TiledMap {
         return height;
     }
 
-    public float getPpm() {
-
-        return ppm;
-    }
 
     public int getTileWith() {
 

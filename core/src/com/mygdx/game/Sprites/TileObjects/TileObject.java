@@ -40,11 +40,11 @@ public abstract class TileObject {
         PolygonShape shape = new PolygonShape();
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set( (bounds.getX() + bounds.getWidth() / 2)/ map.getPpm(), (bounds.getY() + bounds.getHeight() / 2) / map.getPpm() );
+        bodyDef.position.set( (bounds.getX() + bounds.getWidth() / 2)/ AndroidAdventures.PPM, (bounds.getY() + bounds.getHeight() / 2) / AndroidAdventures.PPM );
 
         body = world.createBody(bodyDef);
 
-        shape.setAsBox( bounds.getWidth() / 2/ map.getPpm(), bounds.getHeight() / 2 / map.getPpm());
+        shape.setAsBox( bounds.getWidth() / 2/ AndroidAdventures.PPM, bounds.getHeight() / 2 /AndroidAdventures.PPM);
         fixtureDef.shape = shape;
         fixture = body.createFixture(fixtureDef);
 
@@ -58,8 +58,8 @@ public abstract class TileObject {
 
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getTiledMap().getLayers().get(1);
-        return layer.getCell((int)(body.getPosition().x * map.getPpm() / map.getTileWith()),
-                (int)(body.getPosition().y *  map.getPpm() / map.getTileHeight()));
+        return layer.getCell((int)(body.getPosition().x * AndroidAdventures.PPM / map.getTileWith()),
+                (int)(body.getPosition().y *  AndroidAdventures.PPM / map.getTileHeight()));
     }
 
 }

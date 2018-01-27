@@ -52,13 +52,13 @@ public class Player extends SpriteAgent {
 
     public  void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            b2body.applyLinearImpulse( new Vector2(0, 4f) , b2body.getWorldCenter(), true);
+            getBody().applyLinearImpulse( new Vector2(0, 4f) , getBody().getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
-            b2body.applyLinearImpulse( new Vector2(0.1f, 0) , b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && steerableB2body.getLinearVelocity().x <= 2) {
+            getBody().applyLinearImpulse( new Vector2(0.1f, 0) , getBody().getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2) {
-            b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && steerableB2body.getLinearVelocity().x >= -2) {
+            getBody().applyLinearImpulse(new Vector2(-0.1f, 0), getBody().getWorldCenter(), true);
         }
     }
 
@@ -98,11 +98,11 @@ public class Player extends SpriteAgent {
                 region = agentStand;
                 break;
         }
-        if ( (b2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
+        if ( (steerableB2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
             region.flip(true, false);
             runningRight = false;
         }
-        if ( (b2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
+        if ( (steerableB2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
             region.flip(true, false);
             runningRight = true;
         }
@@ -120,7 +120,7 @@ public class Player extends SpriteAgent {
         super.defineBody();
         FixtureDef fixtureDef = super.getFixtureDef(agentBit);
         fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.ENEMY_BIT ;
-        b2body.createFixture(fixtureDef).setUserData(userData);
+        getBody().createFixture(fixtureDef).setUserData(userData);
         super.defineTexturesPositions(DEATH_TEXTURE_POSITION, RUNNING_TEXTURE_POSITION, FLYING_TEXTURE_POSITION, STANDING_TEXTURE_POSITION );
     }
 
