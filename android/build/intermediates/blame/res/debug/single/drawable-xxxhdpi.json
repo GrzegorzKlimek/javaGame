@@ -1,6 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\Iksob\\Desktop\\javaGame-master\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
-        "source": "C:\\Users\\Iksob\\Desktop\\javaGame-master\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
+        "merged": "/home/grzegorz/Repositories/javaGame/C:\\Users\\Iksob\\Desktop\\javaGame-master\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
+        "source": "/home/grzegorz/Repositories/javaGame/C:\\Users\\Iksob\\Desktop\\javaGame-master\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "/home/grzegorz/Repositories/javaGame/android/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_launcher.png",
+        "source": "/home/grzegorz/Repositories/javaGame/android/res/drawable-xxxhdpi/ic_launcher.png"
     }
 ]
