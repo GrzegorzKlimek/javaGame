@@ -66,9 +66,10 @@ public class PlayScreen implements Screen {
 
         arrive = new Arrive<Vector2>(enemy.getSteerableBody(), player.getSteerableBody())
                 .setTimeToTarget(0.01f)
-                .setArrivalTolerance(2f)
+                .setArrivalTolerance(0.5f)
                 .setDecelerationRadius(3);
 
+        enemy.setBehaviour(arrive);
 
     }
 
@@ -83,7 +84,6 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);
-        enemy.setBehaviour(arrive);
         enemy.update(dt);
         hud.update(dt);
 

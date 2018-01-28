@@ -28,8 +28,8 @@ public class B2DSteeringEntity implements Steerable <Vector2> {
     public B2DSteeringEntity (Body body) {
 
         location = new MyLocation(body);
-        this.maxLinearSpeed = 500;
-        this.maxLinearAcceleration = 5000;
+        this.maxLinearSpeed = 50;
+        this.maxLinearAcceleration = 200;
         this.maxAngularSpeed = 30;
         this.maxAngularAcceleration = 5;
         this.taged = false;
@@ -58,7 +58,7 @@ public class B2DSteeringEntity implements Steerable <Vector2> {
     private void applySteering (float delta) {
         boolean anyAcceleration = false;
         if (!steerOutput.linear.isZero()) {
-            Vector2 force = steerOutput.linear.scl(delta);
+            Vector2 force = new Vector2(steerOutput.linear.scl(delta).x , 0);
             getBody().applyForceToCenter(force, true);
             anyAcceleration = true;
         }
