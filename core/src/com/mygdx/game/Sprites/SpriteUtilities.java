@@ -2,15 +2,8 @@ package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.mygdx.game.AndroidAdventures;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
 import com.mygdx.game.Sprites.agents.protagonist.Player;
-import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by grzegorz on 24.01.18.

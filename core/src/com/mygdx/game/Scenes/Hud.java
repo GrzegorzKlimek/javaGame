@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.AndroidAdventures;
+import com.mygdx.game.AndroidAdventuresGame;
 import com.mygdx.game.Tools.Map;
 
 
@@ -22,7 +22,7 @@ public class Hud implements Disposable {
     private Viewport viewport;
     private Integer worldTimer;
     private float timeCount;
-    private AndroidAdventures game;
+    private AndroidAdventuresGame game;
     private int score;
 
     private Label coundDownLabel;
@@ -32,7 +32,7 @@ public class Hud implements Disposable {
     private Label worldLebel;
     private Label gamerLebel;
 
-    public  Hud (AndroidAdventures game, Map map) {
+    public  Hud (AndroidAdventuresGame game, Map map) {
         worldTimer = 100;
         timeCount = 0;
         this.game = game;

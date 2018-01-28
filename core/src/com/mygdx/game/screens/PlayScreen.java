@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.AndroidAdventures;
+import com.mygdx.game.AndroidAdventuresGame;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
 import com.mygdx.game.Sprites.agents.enemies.DarkKnight;
@@ -32,7 +32,7 @@ public class PlayScreen implements Screen {
 
     private String pathToFirstTileMap = "level1.tmx";
     private String pathToPacks = "packs/android_and_enemies.pack";
-    private AndroidAdventures game;
+    private AndroidAdventuresGame game;
     private TextureAtlas atlas;
     private OrthographicCamera gameCam;
     private Viewport gamePort;
@@ -45,14 +45,14 @@ public class PlayScreen implements Screen {
     private SpriteAgent enemy;
     private Arrive<Vector2> arrive;
 
-    public PlayScreen(AndroidAdventures game) {
+    public PlayScreen(AndroidAdventuresGame game) {
         atlas = new TextureAtlas(pathToPacks);
         this.game = game;
         gameCam = new OrthographicCamera();
         map = new Map(pathToFirstTileMap);
-        gamePort = new FitViewport(map.getWidth() / AndroidAdventures.PPM,  map.getHeight()/ AndroidAdventures.PPM, gameCam);
+        gamePort = new FitViewport(map.getWidth() / AndroidAdventuresGame.PPM,  map.getHeight()/ AndroidAdventuresGame.PPM, gameCam);
         hud = new Hud(game, map);
-        renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/AndroidAdventures.PPM);
+        renderer = new OrthogonalTiledMapRenderer(map.getTiledMap() , 1/ AndroidAdventuresGame.PPM);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0,-10 ), true);
@@ -130,7 +130,7 @@ public class PlayScreen implements Screen {
 
         return map;
     }
-    public AndroidAdventures getGame() {
+    public AndroidAdventuresGame getGame() {
 
         return game;
     }

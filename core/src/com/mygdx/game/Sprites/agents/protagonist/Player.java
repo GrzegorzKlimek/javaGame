@@ -66,6 +66,9 @@ public class Player extends SpriteAgent {
         handleInput(dt);
         } else {
             setRegion(agentDeath);
+            if (stateTimer > 3) {
+            game.setOver(true);
+            }
         }
         super.update(dt);
     }

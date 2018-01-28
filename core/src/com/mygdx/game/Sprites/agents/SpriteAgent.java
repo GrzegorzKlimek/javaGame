@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.AndroidAdventures;
+import com.mygdx.game.AndroidAdventuresGame;
 import com.mygdx.game.Sprites.B2DSteeringEntity;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Tools.Map;
@@ -39,6 +39,7 @@ public abstract class SpriteAgent extends Sprite {
     public  int textureRegionBoundsHeight;
     protected Vector2 sizeOfSprite;
     protected  Vector2 sizeOfB2DBody;
+    protected AndroidAdventuresGame game;
     protected World world;
     protected  Map map;
     public B2DSteeringEntity steerableB2body;
@@ -47,6 +48,7 @@ public abstract class SpriteAgent extends Sprite {
 
     public SpriteAgent(PlayScreen screen, Vector2 startPosition, String firstRegion, Vector2 sizeOfSprite, Vector2 sizeOfB2DBody, Vector2 boundsOfTextureRegion) {
         super(screen.getAtlas().findRegion(firstRegion));
+        game = screen.getGame();
         map = screen.getMap();
         world = screen.getWorld();
         this.sizeOfB2DBody = sizeOfB2DBody;
@@ -54,7 +56,7 @@ public abstract class SpriteAgent extends Sprite {
         this.textureRegionBoundsWith = (int)boundsOfTextureRegion.x;
         this.textureRegionBoundsHeight =  (int) boundsOfTextureRegion.y;
         this.startPosition = startPosition;
-        setBounds(0,0, sizeOfSprite.x/ AndroidAdventures.PPM, sizeOfSprite.y/AndroidAdventures.PPM);
+        setBounds(0,0, sizeOfSprite.x/ AndroidAdventuresGame.PPM, sizeOfSprite.y/ AndroidAdventuresGame.PPM);
 
 
     }
@@ -74,7 +76,7 @@ public abstract class SpriteAgent extends Sprite {
     protected  void defineBody() {
         Body b2body;
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(startPosition.x / AndroidAdventures.PPM, startPosition.y / AndroidAdventures.PPM);
+        bodyDef.position.set(startPosition.x / AndroidAdventuresGame.PPM, startPosition.y / AndroidAdventuresGame.PPM);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bodyDef);
         steerableB2body = new B2DSteeringEntity(b2body);
@@ -82,7 +84,7 @@ public abstract class SpriteAgent extends Sprite {
     protected FixtureDef getFixtureDef (short agentBit) {
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(sizeOfB2DBody.x/ AndroidAdventures.PPM, sizeOfB2DBody.y /AndroidAdventures.PPM);
+        shape.setAsBox(sizeOfB2DBody.x/ AndroidAdventuresGame.PPM, sizeOfB2DBody.y / AndroidAdventuresGame.PPM);
         fixtureDef.filter.categoryBits = agentBit;
         fixtureDef.shape = shape;
         return fixtureDef;
