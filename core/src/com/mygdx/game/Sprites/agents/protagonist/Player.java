@@ -17,9 +17,6 @@ import com.mygdx.game.screens.PlayScreen;
  */
 
 public class Player extends SpriteAgent {
-
-
-    public static String BODY_USER_DATA = "PlayerBody";
     private static String NAME_OF_FIRST_REGION = "android_standing";
     private float durationOfAnimation = 0.1f;
 
@@ -40,11 +37,12 @@ public class Player extends SpriteAgent {
         previousState = STATE.STANDING;
         stateTimer = 0;
         runningRight = true;
-        defineAgent(startPosition, SpriteUtilities.PLAYER_BIT, BODY_USER_DATA);
+        defineAgent(startPosition, SpriteUtilities.PLAYER_BIT);
         agentRun = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.RUNNING));
         playerFly = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.FLYING));
         Vector2 standingDroitTexturePos = getPositionOfAgentTexture(STATE.STANDING, 0);
         agentStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , textureRegionBoundsWith, textureRegionBoundsHeight);
+        agentDeath = new TextureRegion(getTexture(), (int) ( deathTexturePos.x) , (int)( deathTexturePos.y ) , textureRegionBoundsWith, textureRegionBoundsHeight);
         setRegion(agentStand);
 
     }
@@ -64,7 +62,11 @@ public class Player extends SpriteAgent {
 
     @Override
     public void update(float dt) {
+        if (!super.isDeath()) {
         handleInput(dt);
+        } else {
+            setRegion(agentDeath);
+        }
         super.update(dt);
     }
 
@@ -93,34 +95,31 @@ public class Player extends SpriteAgent {
             case RUNNING:
                 region = agentRun.getKeyFrame(stateTimer, true);
                 break;
+            case DEATH:
+                region = agentDeath;
+                break;
             case STANDING:
                 default:
                 region = agentStand;
                 break;
         }
-        if ( (steerableB2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
+        if (doTextureNeedToBeFlipt()) {
             region.flip(true, false);
-            runningRight = false;
         }
-        if ( (steerableB2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
-        stateTimer = currentState == previousState ? stateTimer + deltaTime : 0;
-        previousState = currentState;
         return  region;
-
     }
 
 
 
+
+
     @Override
-    public void defineAgent (Vector2 startPosition , short agentBit, String userData) {
+    public void defineAgent (Vector2 startPosition , short agentBit) {
 
         super.defineBody();
         FixtureDef fixtureDef = super.getFixtureDef(agentBit);
         fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.ENEMY_BIT ;
-        getBody().createFixture(fixtureDef).setUserData(userData);
+        getBody().createFixture(fixtureDef).setUserData(this);
         super.defineTexturesPositions(DEATH_TEXTURE_POSITION, RUNNING_TEXTURE_POSITION, FLYING_TEXTURE_POSITION, STANDING_TEXTURE_POSITION );
     }
 

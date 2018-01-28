@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.game.Sprites.SpriteUtilities;
+import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
+import com.mygdx.game.Sprites.agents.protagonist.Player;
 import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by Iksob on 2018-01-12.
  */
 
-public class DarkKnight extends SpriteAgent {
-    public static String BODY_USER_DATA = "EnemyBody";
+public class DarkKnight extends SpriteAgent implements InteractiveTileObject {
     private static String NAME_OF_FIRST_REGION = "dark_knight_standing";
     private float durationOfAnimation = 0.1f;
 
@@ -32,7 +33,7 @@ public class DarkKnight extends SpriteAgent {
         previousState = STATE.STANDING;
         stateTimer = 0;
         runningRight = true;
-        defineAgent(startPosition, SpriteUtilities.ENEMY_BIT, BODY_USER_DATA);
+        defineAgent(startPosition, SpriteUtilities.ENEMY_BIT);
         agentRun = new Animation<TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.RUNNING));
         Vector2 standingDroitTexturePos = getPositionOfAgentTexture(STATE.STANDING, 0);
         agentStand = new TextureRegion(getTexture(), (int) ( standingDroitTexturePos.x) , (int)( standingDroitTexturePos.y ) , textureRegionBoundsWith, textureRegionBoundsHeight);
@@ -60,24 +61,17 @@ public class DarkKnight extends SpriteAgent {
                 region = agentStand;
                 break;
         }
-        if ( (steerableB2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
+        if (doTextureNeedToBeFlipt()) {
             region.flip(true, false);
-            runningRight = false;
         }
-        if ( (steerableB2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
-        stateTimer = currentState == previousState ? stateTimer + deltaTime : 0;
-        previousState = currentState;
         return  region;
     }
     @Override
-    public void defineAgent (Vector2 startPosition , short agentBit, String userData) {
+    public void defineAgent (Vector2 startPosition , short agentBit) {
         super.defineBody();
         FixtureDef fixtureDef = super.getFixtureDef(agentBit);
         fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.PLAYER_BIT ;
-        getBody().createFixture(fixtureDef).setUserData(userData);
+        getBody().createFixture(fixtureDef).setUserData(this);
         super.defineTexturesPositions(DEATH_TEXTURE_POSITION, RUNNING_TEXTURE_POSITION, FLYING_TEXTURE_POSITION, STANDING_TEXTURE_POSITION );
     }
 
@@ -91,4 +85,10 @@ public class DarkKnight extends SpriteAgent {
 
     }
 
+
+
+    @Override
+    public void onContact(Player player) {
+        player.setState(STATE.DEATH);
+    }
 }

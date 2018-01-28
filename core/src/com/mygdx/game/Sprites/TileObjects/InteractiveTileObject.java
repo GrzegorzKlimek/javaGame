@@ -1,6 +1,7 @@
 package com.mygdx.game.Sprites.TileObjects;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Sprites.agents.protagonist.Player;
 import com.mygdx.game.screens.PlayScreen;
 
 
@@ -8,12 +9,8 @@ import com.mygdx.game.screens.PlayScreen;
  * Created by Iksob on 2018-01-10.
  */
 
-public abstract class InteractiveTileObject extends  TileObject {
+public interface InteractiveTileObject {
 
-    protected InteractiveTileObject (PlayScreen screen, Rectangle bounds) {
-        super(screen, bounds);
-    }
-
-    public abstract void onHeadHit();
+      void onContact(Player player);
 
 }

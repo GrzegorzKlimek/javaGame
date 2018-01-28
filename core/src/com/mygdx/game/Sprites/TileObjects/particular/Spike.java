@@ -6,13 +6,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
+import com.mygdx.game.Sprites.TileObjects.TileObject;
+import com.mygdx.game.Sprites.agents.SpriteAgent;
+import com.mygdx.game.Sprites.agents.protagonist.Player;
 import com.mygdx.game.screens.PlayScreen;
 
 /**
  * Created by grzegorz on 10.01.18.
  */
 
-public class Spike extends InteractiveTileObject {
+public class Spike extends TileObject implements InteractiveTileObject {
     public Spike(PlayScreen screen, Rectangle bounds){
         super(screen, bounds);
         fixture.setUserData(this);
@@ -20,9 +23,10 @@ public class Spike extends InteractiveTileObject {
     }
 
     @Override
-    public void onHeadHit() {
+    public void onContact(Player player) {
 
         Gdx.app.log("Spike", "Collision");
+        player.setState(SpriteAgent.STATE.DEATH);
     }
 
     @Override

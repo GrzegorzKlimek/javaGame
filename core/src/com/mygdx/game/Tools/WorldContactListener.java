@@ -18,16 +18,10 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Gdx.app.log("Begin Contact","");
 
-        Fixture fixA = contact.getFixtureA();
-        Fixture fixB = contact.getFixtureB();
-
-        if (fixA.getUserData().equals(Player.BODY_USER_DATA) || fixB.getUserData().equals(Player.BODY_USER_DATA)) {
-            Fixture head = fixA.getUserData().equals(Player.BODY_USER_DATA) ? fixA : fixB;
-            Fixture object = head == fixA ? fixB : fixA;
-
-            if (object.getUserData() instanceof  InteractiveTileObject) {
-                ((InteractiveTileObject) object.getUserData() ).onHeadHit();
-            }
+        Player player = getPlayerFromContact(contact);
+        InteractiveTileObject tileObject = getInteractiveTileObjectFromContact(contact);
+        if(player != null && tileObject != null) {
+            tileObject.onContact(player);
         }
     }
 
@@ -43,6 +37,34 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
+
+    }
+
+    private Player getPlayerFromContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if (fixA.getUserData() instanceof Player) {
+            return (Player) fixA.getUserData();
+        } else if (fixB.getUserData() instanceof Player) {
+            return (Player) fixB.getUserData();
+        } else {
+            return null;
+        }
+
+    }
+
+    private InteractiveTileObject getInteractiveTileObjectFromContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if (fixA.getUserData() instanceof InteractiveTileObject) {
+            return (InteractiveTileObject) fixA.getUserData();
+        } else if (fixB.getUserData() instanceof InteractiveTileObject) {
+            return (InteractiveTileObject) fixB.getUserData();
+        } else {
+            return null;
+        }
 
     }
 }

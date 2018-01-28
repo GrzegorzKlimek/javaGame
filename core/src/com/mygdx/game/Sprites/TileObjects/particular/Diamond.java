@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Sprites.SpriteUtilities;
 import com.mygdx.game.Sprites.TileObjects.InteractiveTileObject;
 import com.mygdx.game.Sprites.TileObjects.TileObject;
+import com.mygdx.game.Sprites.agents.protagonist.Player;
 import com.mygdx.game.screens.PlayScreen;
 
 /**
@@ -12,7 +13,7 @@ import com.mygdx.game.screens.PlayScreen;
  */
 
 
-public class Diamond extends InteractiveTileObject {
+public class Diamond extends TileObject implements InteractiveTileObject {
     public Diamond(PlayScreen screen, Rectangle bounds){
         super(screen, bounds);
         fixture.setUserData(this);
@@ -21,7 +22,7 @@ public class Diamond extends InteractiveTileObject {
     }
 
     @Override
-    public void onHeadHit() {
+    public void onContact(Player player) {
 
         Gdx.app.log("Diamond", "Collision");
         setCategoryFilter(SpriteUtilities.DESTROYED_BIT);

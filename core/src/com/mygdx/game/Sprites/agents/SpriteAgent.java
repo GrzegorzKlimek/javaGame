@@ -26,6 +26,7 @@ public abstract class SpriteAgent extends Sprite {
     protected STATE currentState;
     protected STATE previousState;
     protected TextureRegion agentStand;
+    protected TextureRegion agentDeath;
     protected Animation<TextureRegion> agentRun;
 
     public   Vector2 startPosition ;
@@ -60,7 +61,7 @@ public abstract class SpriteAgent extends Sprite {
     protected abstract int getActionFramesNumber(STATE actionOrStateOfPlayer);
     protected abstract TextureRegion getFrame (float deltaTime);
 
-    protected abstract void defineAgent(Vector2 startPosition , short agentBit, String userData);
+    protected abstract void defineAgent(Vector2 startPosition , short agentBit);
 
     public Body getBody () {
         return steerableB2body.getBody();
@@ -86,6 +87,8 @@ public abstract class SpriteAgent extends Sprite {
         fixtureDef.shape = shape;
         return fixtureDef;
     }
+
+
 
     protected Vector2 getPositionOfAgentTexture(STATE state, int index) {
         float x;
@@ -123,7 +126,9 @@ public abstract class SpriteAgent extends Sprite {
     }
 
     protected STATE getState() {
-        if (steerableB2body.getLinearVelocity().y != 0) {
+        if (currentState == STATE.DEATH) {
+            return currentState;
+        } else if (steerableB2body.getLinearVelocity().y != 0) {
             return  STATE.FLYING;
         } else if (steerableB2body.getLinearVelocity().x != 0) {
             return  STATE.RUNNING;
@@ -133,11 +138,37 @@ public abstract class SpriteAgent extends Sprite {
 
     }
 
+    public void setState(STATE state) {
+        this.currentState = state;
+    }
+
 
     public void update(float dt){
         steerableB2body.update(dt);
+        updateRunningDirectionInfo();
+        updateStateTimer(dt);
         setPosition(steerableB2body.getPosition().x - getWidth() /2 , steerableB2body.getPosition().y - getHeight()/2);
         setRegion(getFrame(dt));
+    }
+
+    protected void updateRunningDirectionInfo() {
+        if ( (steerableB2body.getLinearVelocity().x < 0 || !runningRight) && !isFlipX()) {
+
+            runningRight = false;
+        }
+        if ( (steerableB2body.getLinearVelocity().x > 0 || runningRight) && isFlipX()) {
+
+            runningRight = true;
+        }
+
+    }
+
+    protected  void updateStateTimer(float dt) {
+        stateTimer = currentState == previousState ? stateTimer + dt : 0;
+        previousState = currentState;
+    }
+    protected  boolean doTextureNeedToBeFlipt() {
+        return  (runningRight && isFlipX()) || (!runningRight && !isFlipX());
     }
 
     protected Array<TextureRegion> getFramesForPlayerActionAnimation (STATE actionOrStateOfPlayer) {
@@ -152,6 +183,10 @@ public abstract class SpriteAgent extends Sprite {
 
     public void setBehaviour(SteeringBehavior<Vector2> steeringBehavior) {
         steerableB2body.setBehaviour(steeringBehavior);
+    }
+
+    public boolean isDeath() {
+        return currentState.equals(STATE.DEATH);
     }
 
 
