@@ -1,8 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.screens.FinishedLevelScreen;
 import com.mygdx.game.screens.GameOverScreen;
 import com.mygdx.game.screens.PlayScreen;
 
@@ -15,6 +15,7 @@ public class AndroidAdventuresGame extends Game {
 	private   int score = 0;
 	public SpriteBatch batch;
 	private boolean isOver = false;
+	private boolean playerFinishedLevel = false;
 
 
 
@@ -29,6 +30,9 @@ public class AndroidAdventuresGame extends Game {
 	public void render () {
 		if (isOver) {
 			setScreen(new GameOverScreen(this));
+		}
+		if (playerFinishedLevel) {
+			setScreen(new FinishedLevelScreen(this));
 		}
 		super.render();
 	}
@@ -57,8 +61,12 @@ public class AndroidAdventuresGame extends Game {
 
 		return score;
 	}
-	public void resetScore () {
 
-		score = 0;
+	public boolean isPlayerFinishedLevel() {
+		return playerFinishedLevel;
+	}
+
+	public void setPlayerFinishedLevel(boolean playerFinishedLevel) {
+		this.playerFinishedLevel = playerFinishedLevel;
 	}
 }

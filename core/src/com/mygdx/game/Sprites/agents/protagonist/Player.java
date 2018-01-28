@@ -30,12 +30,14 @@ public class Player extends SpriteAgent {
 
 
     private Animation <TextureRegion>playerFly;
+    private boolean finishedLevel;
 
     public Player ( PlayScreen screen, Vector2 startPosition) {
         super(screen, startPosition, NAME_OF_FIRST_REGION,SPRITE_TEXTURE_SIZE, SIZE_OF_BOX2D_BODY, TEXTURE_SIZE);
         currentState = STATE.STANDING;
         previousState = STATE.STANDING;
         stateTimer = 0;
+        finishedLevel = false;
         runningRight = true;
         defineAgent(startPosition, SpriteUtilities.PLAYER_BIT);
         agentRun = new Animation <TextureRegion>(durationOfAnimation, getFramesForPlayerActionAnimation(STATE.RUNNING));
@@ -64,6 +66,9 @@ public class Player extends SpriteAgent {
     public void update(float dt) {
         if (!super.isDeath()) {
         handleInput(dt);
+        if (getIsFinishedLevel()) {
+            game.setPlayerFinishedLevel(true);
+        }
         } else {
             setRegion(agentDeath);
             if (stateTimer > 3) {
@@ -121,12 +126,18 @@ public class Player extends SpriteAgent {
 
         super.defineBody();
         FixtureDef fixtureDef = super.getFixtureDef(agentBit);
-        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.ENEMY_BIT ;
+        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.ENEMY_BIT | SpriteUtilities.KEY_BIT ;
         getBody().createFixture(fixtureDef).setUserData(this);
         super.defineTexturesPositions(DEATH_TEXTURE_POSITION, RUNNING_TEXTURE_POSITION, FLYING_TEXTURE_POSITION, STANDING_TEXTURE_POSITION );
     }
 
+    public boolean getIsFinishedLevel() {
+        return finishedLevel;
+    }
 
+    public void setIsFinishedLevel(boolean doFinishedLevel) {
+        this.finishedLevel = doFinishedLevel;
+    }
 }
 
 

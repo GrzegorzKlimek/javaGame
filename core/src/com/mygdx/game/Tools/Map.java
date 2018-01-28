@@ -19,7 +19,8 @@ public class Map extends TiledMap {
     public static final int TILED_PLATFORM_LAYER_INDEX = 2;
     public static final int TILED_DIAMONDS_LAYER_INDEX = 3;
     public static final int TILED_SPIKES_LAYER_INDEX = 4;
-    private   int [] interactiveLayersIndexes = {TILED_PLATFORM_LAYER_INDEX, TILED_DIAMONDS_LAYER_INDEX, TILED_SPIKES_LAYER_INDEX};
+    public  static final int TILED_KEY_LAYER_INDEX = 5;
+    private   int [] interactiveLayersIndexes = {TILED_PLATFORM_LAYER_INDEX, TILED_DIAMONDS_LAYER_INDEX, TILED_SPIKES_LAYER_INDEX, TILED_KEY_LAYER_INDEX};
 
 
 

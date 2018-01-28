@@ -16,9 +16,8 @@ public class SpriteUtilities {
     public static final short DIAMOND_BIT = 4;
     public static final short DESTROYED_BIT = 16;
     public static final short SPIKE_BIT = 32;
-    public static final short OBJECT_BIT = 64;
+    public static final short KEY_BIT = 64;
     public static final short ENEMY_BIT = 128;
-    public static final short B2DSTEERINGENTITYBODY = 256;
 
     public static TextureRegion loadTexture (SpriteAgent agent, SpriteAgent.STATE state, int numberOfFrame) {
         int xCoordinate;
