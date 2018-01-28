@@ -36,11 +36,15 @@ public class GameOverScreen implements Screen{
         table.setFillParent(true);
 
         Label gameOverLabel = new Label("GAME OVER", font);
-        Label playAgainLabel = new Label("Click to Play Again", font);
+        Label scoreLabel = new Label("SCORE", font);
+        String points = String.format("%03d", ((AndroidAdventuresGame) game).getScore()  );
+        Label pointLabel = new Label(  points, font);
 
         table.add(gameOverLabel).expandX();
         table.row();
-        table.add(playAgainLabel).expandX().padTop(10f);
+        table.add(scoreLabel).expandX().padTop(10f);
+        table.row();
+        table.add(pointLabel).expandX();
 
         stage.addActor(table);
     }
