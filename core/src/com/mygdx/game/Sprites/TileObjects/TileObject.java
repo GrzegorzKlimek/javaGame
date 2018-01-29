@@ -26,6 +26,7 @@ public abstract class TileObject {
     protected AndroidAdventuresGame game;
     protected Rectangle bounds;
     protected Body body;
+    protected BodyDef bodyDef;
     protected Fixture fixture;
 
 
@@ -35,7 +36,7 @@ public abstract class TileObject {
         this.map = screen.getMap();
         this.bounds=bounds;
 
-        BodyDef bodyDef = new BodyDef();
+        bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
@@ -49,6 +50,8 @@ public abstract class TileObject {
         fixture = body.createFixture(fixtureDef);
 
     }
+
+
     public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
@@ -60,6 +63,10 @@ public abstract class TileObject {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getTiledMap().getLayers().get(Map.BODIES_LAYER_INDEX);
         return layer.getCell((int)(body.getPosition().x * AndroidAdventuresGame.PPM / map.getTileWith()),
                 (int)(body.getPosition().y *  AndroidAdventuresGame.PPM / map.getTileHeight()));
+    }
+
+    protected void setIsSensor (boolean isSensor) {
+        fixture.setSensor(true);
     }
 
 }
