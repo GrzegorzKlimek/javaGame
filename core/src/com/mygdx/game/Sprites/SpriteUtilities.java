@@ -18,6 +18,7 @@ public class SpriteUtilities {
     public static final short SPIKE_BIT = 32;
     public static final short KEY_BIT = 64;
     public static final short ENEMY_BIT = 128;
+    public static final short NPC_BOUNDRIES_BIT = 256;
 
     public static TextureRegion loadTexture (SpriteAgent agent, SpriteAgent.STATE state, int numberOfFrame) {
         int xCoordinate;

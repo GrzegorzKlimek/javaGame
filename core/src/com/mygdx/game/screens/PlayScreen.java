@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,12 +17,18 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.AndroidAdventuresGame;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.agents.SpriteAgent;
-import com.mygdx.game.Sprites.agents.enemies.DarkKnight;
+import com.mygdx.game.Sprites.agents.enemies.Enemy;
 import com.mygdx.game.Tools.B2WorldCreator;
 
 import com.mygdx.game.Sprites.agents.protagonist.Player;
 import com.mygdx.game.Tools.Map;
+import com.mygdx.game.Tools.NPCgenerator;
+import com.mygdx.game.Tools.Pair;
 import com.mygdx.game.Tools.WorldContactListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -42,10 +49,7 @@ public class PlayScreen implements Screen {
     private  World world;
     private Box2DDebugRenderer b2dr;
     private SpriteAgent player;
-    private SpriteAgent enemy;
-    private SpriteAgent enemy2;
-    private SpriteAgent enemy3;
-    private SpriteAgent enemy4;
+    private List<Enemy> enemies;
     private Arrive<Vector2> arrive;
 
     public PlayScreen(AndroidAdventuresGame game) {
@@ -60,22 +64,29 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0,-10 ), true);
         b2dr = new Box2DDebugRenderer();
-        //b2dr.setDrawBodies(false);
+        b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
         player = new Player(this, new Vector2(32,32));
-        enemy = new DarkKnight(this, new Vector2(350,50));
-        enemy2 = new DarkKnight(this, new Vector2(850,50));
-        enemy3 = new DarkKnight(this, new Vector2(1500,50));
-        enemy4 = new DarkKnight(this, new Vector2(2000,50));
-
         world.setContactListener(new WorldContactListener());
+        setNPCies();
 
-        arrive = new Arrive<Vector2>(enemy.getSteerableBody(), player.getSteerableBody())
-                .setTimeToTarget(0.01f)
-                .setArrivalTolerance(0.5f)
-                .setDecelerationRadius(3);
+    }
 
-        enemy.setBehaviour(arrive);
+    public void setNPCies () {
+        List <Pair<Enemy.KIND, Vector2>> enemiesParams = new ArrayList<Pair<Enemy.KIND, Vector2>>();
+        enemiesParams.add(new Pair<Enemy.KIND, Vector2>(Enemy.KIND.DARK_KNIGHT, new Vector2(350,50) ));
+        enemiesParams.add(new Pair<Enemy.KIND, Vector2>(Enemy.KIND.DARK_KNIGHT, new Vector2(850,50) ));
+        enemiesParams.add(new Pair<Enemy.KIND, Vector2>(Enemy.KIND.DARK_KNIGHT, new Vector2(1700,50) ));
+        enemiesParams.add(new Pair<Enemy.KIND, Vector2>(Enemy.KIND.DARK_KNIGHT, new Vector2(2100,50) ));
+        enemies = new NPCgenerator().generate(this,enemiesParams);
+
+        for (Enemy enemy: enemies) {
+            SteeringBehavior<Vector2> behavior = new  Arrive<Vector2>(enemy.getSteerableBody(), player.getSteerableBody())
+                    .setTimeToTarget(0.01f)
+                    .setArrivalTolerance(0.5f)
+                    .setDecelerationRadius(3);
+            enemy.setBehaviour(behavior);
+        }
 
     }
 
@@ -90,16 +101,18 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);
-        enemy.update(dt);
-        enemy2.update(dt);
-        enemy3.update(dt);
-        enemy4.update(dt);
-
+        updateNPCies(dt);
         hud.update(dt);
 
         gameCam.position.x = player.steerableB2body.getPosition().x;
         gameCam.update();
         renderer.setView(gameCam);
+    }
+
+    private void updateNPCies (float dt) {
+        for (Enemy enemy: enemies) {
+            enemy.update(dt);
+        }
     }
 
     @Override
@@ -121,15 +134,18 @@ public class PlayScreen implements Screen {
         gameBatch.setProjectionMatrix(gameCam.combined);
         gameBatch.begin();
         player.draw(gameBatch);
-        enemy.draw(gameBatch);
-        enemy2.draw(gameBatch);
-        enemy3.draw(gameBatch);
-        enemy4.draw(gameBatch);
+        drawNPCies(gameBatch);
         gameBatch.end();
 
         gameBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
+    }
+
+    private void drawNPCies(Batch batch) {
+        for (Enemy enemy: enemies) {
+            enemy.draw(batch);
+        }
     }
 
 

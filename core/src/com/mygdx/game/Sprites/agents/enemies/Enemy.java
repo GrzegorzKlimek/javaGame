@@ -13,6 +13,7 @@ import com.mygdx.game.screens.PlayScreen;
 
 public abstract class Enemy extends SpriteAgent {
 
+    public enum KIND {DARK_KNIGHT};
 
     public Enemy(PlayScreen screen, Vector2 startPosition, String firstRegion, Vector2 sizeOfSprite, Vector2 sizeOfB2DBody, Vector2 boundsOfTextureRegion) {
         super(screen, startPosition, firstRegion, sizeOfSprite, sizeOfB2DBody, boundsOfTextureRegion);
@@ -23,7 +24,7 @@ public abstract class Enemy extends SpriteAgent {
     public void defineAgent (Vector2 startPosition , short agentBit) {
         super.defineBody();
         FixtureDef fixtureDef = super.getFixtureDef(agentBit);
-        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.PLAYER_BIT ;
+        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT  | SpriteUtilities.SPIKE_BIT | SpriteUtilities.PLAYER_BIT | SpriteUtilities.NPC_BOUNDRIES_BIT;
         getBody().createFixture(fixtureDef).setUserData(this);
 
     }

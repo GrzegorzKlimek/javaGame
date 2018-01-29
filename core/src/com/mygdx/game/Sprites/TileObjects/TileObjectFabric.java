@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Sprites.TileObjects.particular.Diamond;
 import com.mygdx.game.Sprites.TileObjects.particular.Key;
+import com.mygdx.game.Sprites.TileObjects.particular.NPCBoundries;
 import com.mygdx.game.Sprites.TileObjects.particular.Platform;
 import com.mygdx.game.Sprites.TileObjects.particular.Spike;
 import com.mygdx.game.Tools.Map;
@@ -29,6 +30,8 @@ public class TileObjectFabric {
                 return  new Diamond(screen, bounds);
             case Map.TILED_KEY_LAYER_INDEX:
                 return new Key(screen, bounds);
+            case Map.TILED_NPC_BOUNDRIES_LAYER_INDEX:
+                    return new NPCBoundries(screen, bounds);
 
             default:
                     return null;
