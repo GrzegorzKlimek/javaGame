@@ -14,7 +14,7 @@ import com.mygdx.game.screens.PlayScreen;
  * Created by Iksob on 2018-01-12.
  */
 
-public class DarkKnight extends SpriteAgent implements InteractiveTileObject {
+public class DarkKnight extends Enemy implements InteractiveTileObject {
     private static String NAME_OF_FIRST_REGION = "dark_knight_standing";
     private float durationOfAnimation = 0.1f;
 
@@ -68,10 +68,7 @@ public class DarkKnight extends SpriteAgent implements InteractiveTileObject {
     }
     @Override
     public void defineAgent (Vector2 startPosition , short agentBit) {
-        super.defineBody();
-        FixtureDef fixtureDef = super.getFixtureDef(agentBit);
-        fixtureDef.filter.maskBits = SpriteUtilities.PLATFORM_BIT | SpriteUtilities.DIAMOND_BIT | SpriteUtilities.SPIKE_BIT | SpriteUtilities.PLAYER_BIT ;
-        getBody().createFixture(fixtureDef).setUserData(this);
+        super.defineAgent(startPosition, agentBit);
         super.defineTexturesPositions(DEATH_TEXTURE_POSITION, RUNNING_TEXTURE_POSITION, FLYING_TEXTURE_POSITION, STANDING_TEXTURE_POSITION );
     }
 

@@ -43,6 +43,9 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
     private SpriteAgent player;
     private SpriteAgent enemy;
+    private SpriteAgent enemy2;
+    private SpriteAgent enemy3;
+    private SpriteAgent enemy4;
     private Arrive<Vector2> arrive;
 
     public PlayScreen(AndroidAdventuresGame game) {
@@ -60,7 +63,10 @@ public class PlayScreen implements Screen {
         //b2dr.setDrawBodies(false);
         new B2WorldCreator(this);
         player = new Player(this, new Vector2(32,32));
-        enemy = new DarkKnight(this, new Vector2(250,50));
+        enemy = new DarkKnight(this, new Vector2(350,50));
+        enemy2 = new DarkKnight(this, new Vector2(850,50));
+        enemy3 = new DarkKnight(this, new Vector2(1500,50));
+        enemy4 = new DarkKnight(this, new Vector2(2000,50));
 
         world.setContactListener(new WorldContactListener());
 
@@ -85,6 +91,10 @@ public class PlayScreen implements Screen {
 
         player.update(dt);
         enemy.update(dt);
+        enemy2.update(dt);
+        enemy3.update(dt);
+        enemy4.update(dt);
+
         hud.update(dt);
 
         gameCam.position.x = player.steerableB2body.getPosition().x;
@@ -112,6 +122,9 @@ public class PlayScreen implements Screen {
         gameBatch.begin();
         player.draw(gameBatch);
         enemy.draw(gameBatch);
+        enemy2.draw(gameBatch);
+        enemy3.draw(gameBatch);
+        enemy4.draw(gameBatch);
         gameBatch.end();
 
         gameBatch.setProjectionMatrix(hud.stage.getCamera().combined);
