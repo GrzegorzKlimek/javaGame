@@ -11,6 +11,10 @@ public class AndroidAdventuresGame extends Game {
 	public static  float PPM = 100;
 	public static float V_WIDTH = 400;
 	public static float V_HEIGHT = 250;
+	private Integer worldTimer;
+	private float timeCount;
+
+
 
 	private   int score = 0;
 	public SpriteBatch batch;
@@ -21,6 +25,7 @@ public class AndroidAdventuresGame extends Game {
 
 	@Override
 	public void create () {
+		worldTimer = 100;
 		batch = new SpriteBatch();
 		setScreen(new PlayScreen(this));
 
@@ -28,7 +33,7 @@ public class AndroidAdventuresGame extends Game {
 
 	@Override
 	public void render () {
-		if (isOver) {
+		if (isOver ) {
 			setScreen(new GameOverScreen(this));
 		}
 		if (playerFinishedLevel) {
@@ -42,9 +47,18 @@ public class AndroidAdventuresGame extends Game {
 		batch.dispose();
 
 	}
-	public boolean isOver() {
-		return isOver;
+
+	public void updateWorldTimer(float dt) {
+		timeCount += dt;
+		if(timeCount >= 1){
+			worldTimer--;
+			timeCount=0;
+		}
+		if (worldTimer <= 0) {
+			isOver = true;
+		}
 	}
+
 
 	public void setOver(boolean over) {
 		isOver = over;
@@ -62,8 +76,8 @@ public class AndroidAdventuresGame extends Game {
 		return score;
 	}
 
-	public boolean isPlayerFinishedLevel() {
-		return playerFinishedLevel;
+	public Integer getWorldTimer() {
+		return worldTimer;
 	}
 
 	public void setPlayerFinishedLevel(boolean playerFinishedLevel) {

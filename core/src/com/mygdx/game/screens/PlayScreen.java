@@ -99,7 +99,7 @@ public class PlayScreen implements Screen {
     public void update(float dt) {
 
         world.step(1 / 60f, 6, 2);
-
+        game.updateWorldTimer(dt);
         player.update(dt);
         updateNPCies(dt);
         hud.update(dt);

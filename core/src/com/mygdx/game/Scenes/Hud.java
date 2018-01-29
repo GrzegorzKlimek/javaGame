@@ -20,10 +20,10 @@ import com.mygdx.game.Tools.Map;
 public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
-    private Integer worldTimer;
     private float timeCount;
     private AndroidAdventuresGame game;
     private int score;
+
 
     private Label coundDownLabel;
     private static Label scoreLebel;
@@ -33,7 +33,7 @@ public class Hud implements Disposable {
     private Label gamerLebel;
 
     public  Hud (AndroidAdventuresGame game, Map map) {
-        worldTimer = 100;
+
         timeCount = 0;
         this.game = game;
         score = game.getScore();
@@ -44,7 +44,7 @@ public class Hud implements Disposable {
         Table table = new Table();
         table.top();
         table.setFillParent(true);
-        coundDownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle( new BitmapFont(), Color.WHITE));
+        coundDownLabel = new Label(String.format("%03d", game.getWorldTimer()), new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         scoreLebel = new Label(String.format("%06d", score), new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         timeLebel = new Label("TIME", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
         levelLebel= new Label("1-1", new Label.LabelStyle( new BitmapFont(), Color.WHITE));
@@ -63,12 +63,9 @@ public class Hud implements Disposable {
     }
 
     public void update(float dt){
-        timeCount += dt;
-        if(timeCount >= 1){
-            worldTimer--;
-            coundDownLabel.setText(String.format("%03d",worldTimer));
-            timeCount=0;
-        }
+
+            coundDownLabel.setText(String.format("%03d",game.getWorldTimer()));
+
         updateScore();
 
     }
