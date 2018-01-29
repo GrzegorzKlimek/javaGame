@@ -16,7 +16,7 @@ import com.mygdx.game.screens.PlayScreen;
 public class Diamond extends TileObject implements InteractiveTileObject {
     public Diamond(PlayScreen screen, Rectangle bounds){
         super(screen, bounds);
-        setIsSensor(true);
+        fixture.setSensor(true);
         fixture.setUserData(this);
         setCategoryFilter(SpriteUtilities.DIAMOND_BIT);
 

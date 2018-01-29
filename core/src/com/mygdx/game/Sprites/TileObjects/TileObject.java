@@ -65,8 +65,6 @@ public abstract class TileObject {
                 (int)(body.getPosition().y *  AndroidAdventuresGame.PPM / map.getTileHeight()));
     }
 
-    protected void setIsSensor (boolean isSensor) {
-        fixture.setSensor(true);
-    }
+
 
 }

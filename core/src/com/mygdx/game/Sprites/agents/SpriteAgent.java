@@ -141,7 +141,7 @@ public abstract class SpriteAgent extends Sprite {
     }
 
     public void setState(STATE state) {
-        //this.currentState = state;
+        this.currentState = state;
     }
 
 

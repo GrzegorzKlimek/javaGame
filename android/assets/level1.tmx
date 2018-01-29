@@ -8,10 +8,10 @@
  </layer>
  <layer name="bodies" width="150" height="14">
   <data encoding="base64" compression="zlib">
-   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
+   eJztmEtzDFEUx7s7MyOJ8CGwDwrxHciChVeVx8YnCAtKYRGPIt7EI4m3UBEm2XtsbFjIQohZSrBhw0YlQvxPTZ/0cebcnp6MmabK4jfn9vTr9r2/OedOdwWedwKcBKfAaXAGnAXnwHlwAXSDi+ASuAyugB7QC/rAVXANXAc3wE1wC9wGd0A/uAvugWPgOOj6f++63DuN+076ydjslX7XCQ4BXGaWo9huCn7/jtjiuxkO3Pvk+XHXWglWidgGVoMnOOEpmPFtyu1PegyxLuN56zOl58rzy13Lukbc9zN+6Vjn8d0Qjatf2ubtvNp3P4g/j9sjCZkSfBdx2vBKuzUIHoCH4t5DoVfcjvOJKcR4lZStYJuI2q9yTvyr0LiPgbdhzIs4pNrD4ljt1avAPq6g2t8UIyJKFgVF2C1ua7fYK+nWKHgN3oh7E+QVt5O4ldSrlw3ufZQ3D4vIfm0HO/6C+a+VU+wBuyDdYhdcuUce8z2wXdJejoTzIJ1qbyj1jTxaHER+WV5Jp5i9DcX9P8DP8DkpCb9DHAcT4XYSt+LqYBLGgyhvcmS/jvjF2hw3P90N6TtSjVNWrdP+yPzF7tC4DSBOBUWvplXOcuUrzknUxtB58/DRCJpAc8ikcGtJSLmaqOeM25Zn7FYl+WpPTF5ywXWP86euz2l7UCuvpAcF4Y50gfKLrH/6PGrTVOkcZh3LPrFf5FUrPpaCZWB5CHul8xTXRPZNzqGeM/Zq1He75fKFOuaDYA4uudbt1D9dn//knNJYbkDcCDYBLKfNvFfLPCjrlJVXXOtzK2/JNp+j659eX0m/BvzSmiz9kW5ZTrV60X9Ama86Q6Z92ys+rtq1edJ1e5xTH7Ke9zEbxbl6tR/xADjoR17VO1dZNYgj9Ym9cznk2mc5+whj9TgbRVkPx9XarKD84dxF/tA2X0POn/UfcDBkNGTQcVy17jTmMG65KMat2+W6SuaNBThvYS6KfK1K5rVfUEt/XPmO59CqQRwzMe8baG1c7r9fnFPSLfZLe2W9q9K/aY6yTsp8wD5xvuJtnTdm19m41gR4n52bT5Zfet1uratcz8UxqWPSq+f4/b1I8G6rVnlLr4Fc7xdc6yrr3dawmiPZ1mOWD93S51te6d80R5nbZJ1jn7gGuuohe9KMa80HLbnqfJJescNWDdwX4nounbuS+PUFz/M1iGIaXml34t47lVuP6Zoo50i29ZjJ68rz12bSo81Yq69JsT9JaFfvvDlfpdFv6ot8r6DfW6U5lp2Y25aU2GnUwU/o07MK2FVndiuvOF91pNSXMZErtFf16lOvAXm1IiXIKyqREvLqcwVYz1RLaC51n4mOFPrS5+gL01Onfli/918hlkcc
   </data>
  </layer>
- <objectgroup name="platforms" visible="0">
+ <objectgroup name="platforms">
   <object id="3" x="0" y="176" width="511" height="47"/>
   <object id="4" x="463" y="144" width="48" height="29"/>
   <object id="5" x="81" y="147" width="90" height="27"/>
@@ -34,8 +34,8 @@
   <object id="87" x="688" y="129" width="60" height="16"/>
   <object id="88" x="625" y="160" width="35" height="15"/>
   <object id="99" x="1" y="0" width="2399" height="15"/>
-  <object id="103" x="162" y="16" width="12" height="47"/>
-  <object id="106" x="146" y="65" width="44" height="15"/>
+  <object id="103" x="337" y="15" width="12" height="55"/>
+  <object id="106" x="321" y="65" width="44" height="15"/>
   <object id="107" x="512" y="96" width="47" height="16"/>
   <object id="109" x="-1" y="18" width="16" height="157"/>
   <object id="110" x="2384" y="94" width="15" height="82"/>
@@ -43,7 +43,7 @@
   <object id="118" x="2066" y="63" width="47" height="17"/>
   <object id="132" x="1250" y="97" width="43" height="27"/>
  </objectgroup>
- <objectgroup name="diamont" visible="0">
+ <objectgroup name="diamont">
   <object id="40" x="223" y="65" width="19" height="13"/>
   <object id="44" x="432" y="97" width="15" height="12"/>
   <object id="45" x="591" y="79" width="16" height="14"/>
@@ -62,7 +62,7 @@
   <object id="74" x="2257" y="47" width="14" height="16"/>
   <object id="77" x="2321" y="109" width="14" height="18"/>
  </objectgroup>
- <objectgroup name="spikes" visible="0">
+ <objectgroup name="spikes">
   <object id="90" x="893" y="16" width="33" height="16"/>
   <object id="91" x="1024" y="16" width="32" height="16"/>
   <object id="92" x="1171" y="14" width="28" height="19"/>
