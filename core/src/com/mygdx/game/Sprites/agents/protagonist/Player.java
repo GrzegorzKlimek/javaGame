@@ -52,7 +52,7 @@ public class Player extends SpriteAgent {
 
     public  void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            getBody().applyLinearImpulse( new Vector2(0, 4f) , getBody().getWorldCenter(), true);
+            getBody().applyLinearImpulse( new Vector2(0, 3.2f) , getBody().getWorldCenter(), true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && steerableB2body.getLinearVelocity().x <= 2) {
             getBody().applyLinearImpulse( new Vector2(0.1f, 0) , getBody().getWorldCenter(), true);
